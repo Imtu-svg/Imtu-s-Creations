@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> IMTU'S Creations </title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+body{color:white;overflow-x:hidden;background:radial-gradient(circle at center,#3a3a3a 0%,#0b0b0b 60%,#000 100%);}
+
+.home-btn{position:fixed;top:25px;left:25px;width:100px;cursor:pointer;z-index:2000;transition:.3s;}
+.home-btn:hover{animation:glitch .5s infinite;transform:scale(1.15) rotate(-5deg);}
+
+#reloadOverlay{position:fixed;inset:0;z-index:9999;display:flex;justify-content:center;align-items:center;background:#000;overflow:hidden;animation:fadeInOverlay 0.3s ease forwards;}
+@keyframes fadeInOverlay{from{opacity:0}to{opacity:1}}
+.ring{position:absolute;border-radius:50%;border:2px solid transparent;animation:shockwave 1s ease-out forwards;}
+.ring:nth-child(1){border-color:#00ffff;animation-delay:0s;}
+.ring:nth-child(2){border-color:#ff00ff;animation-delay:0.2s;}
+.ring:nth-child(3){border-color:#ffffff;animation-delay:0.4s;}
+.ring:nth-child(4){border-color:#00ff88;animation-delay:0.6s;}
+@keyframes shockwave{0%{width:0px;height:0px;opacity:1;box-shadow:0 0 10px currentColor}100%{width:900px;height:900px;opacity:0;box-shadow:0 0 60px currentColor}}
+.reload-core{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.reload-logo{font-size:52px;font-weight:900;letter-spacing:8px;background:linear-gradient(90deg,#00ffff,#ff00ff,#ffffff,#00ff88,#00ffff);background-size:300% 300%;-webkit-background-clip:text;color:transparent;animation:gradientShift 1s linear infinite,zoomIn 0.4s ease forwards,glitchFlicker 1.5s steps(2) infinite;}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes zoomIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes glitchFlicker{0%,100%{text-shadow:3px 0 #ff00ff,-3px 0 #00ffff}25%{text-shadow:-3px 0 #ff00ff,3px 0 #00ffff}50%{text-shadow:3px 3px #00ff88,-3px -3px #ff00ff}75%{text-shadow:0 0 20px #fff,3px 0 #00ffff}}
+.scanlines{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(255,255,255,0.03) 3px,rgba(255,255,255,0.03) 4px);pointer-events:none;z-index:1;}
+.particle{position:absolute;width:4px;height:4px;border-radius:50%;animation:floatParticle 1s ease-out forwards;}
+@keyframes floatParticle{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
+.reload-bar-wrap{width:220px;height:3px;background:rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;}
+.reload-bar{height:100%;width:0%;border-radius:10px;background:linear-gradient(90deg,#00ffff,#ff00ff,#00ff88);animation:loadBar 1s ease forwards;box-shadow:0 0 10px #00ffff;}
+@keyframes loadBar{0%{width:0%}60%{width:80%}100%{width:100%}}
+.reload-sub{font-size:13px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+
+.menu-btn{position:fixed;top:25px;right:25px;width:80px;cursor:pointer;z-index:2000;transition:.3s;}
+.menu-btn:hover{animation:glitch .5s infinite;transform:scale(1.15) rotate(5deg);}
+.menu-dropdown{position:fixed;top:115px;right:30px;display:flex;flex-direction:column;gap:12px;z-index:1999;opacity:0;pointer-events:none;transform:translateY(-10px);transition:opacity 0.3s,transform 0.3s;}
+.menu-dropdown.open{opacity:1;pointer-events:all;transform:translateY(0);}
+.menu-item{background:transparent;color:#00ffff;border:1px solid #00ffff44;border-radius:8px;padding:10px 28px;font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:color 0.3s,border-color 0.3s,box-shadow 0.3s,transform 0.2s;backdrop-filter:blur(6px);position:relative;overflow:hidden;}
+.menu-item::before{content:'';position:absolute;inset:0;background:#00ffff;opacity:0;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease,opacity 0.35s ease;z-index:0;}
+.menu-item:hover::before{transform:scaleX(1);opacity:0.12;}
+.menu-item:hover{border-color:#00ffff;box-shadow:0 0 8px #00ffff,0 0 20px #00ffff88,0 0 40px #00ffff44,inset 0 0 12px #00ffff22;color:#88ffff;transform:translateY(-3px);}
+.menu-item:active{transform:translateY(0px) scale(0.97);}
+
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:8000;display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.popup-overlay.open{opacity:1;pointer-events:all;}
+.login-popup{background:#111;border:1px solid #00ffff33;border-radius:16px;padding:40px 36px;width:340px;display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;box-shadow:0 0 40px #00ffff22,0 0 80px #ff00ff11;transform:scale(0.9);transition:transform 0.3s;}
+.popup-overlay.open .login-popup{transform:scale(1);}
+.popup-bottom-btns{display:flex;gap:12px;width:100%;margin-top:4px;}
+.popup-ghost-btn{flex:1;padding:10px;border:1px solid #00ffff44;border-radius:8px;background:transparent;color:#00ffff;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:box-shadow 0.3s,border-color 0.3s,color 0.3s,transform 0.2s;}
+.popup-ghost-btn:hover{border-color:#00ffff;box-shadow:0 0 8px #00ffff,0 0 20px #00ffff88,inset 0 0 12px #00ffff22;color:#88ffff;transform:translateY(-2px);}
+.popup-close{position:absolute;top:14px;right:16px;background:transparent;border:none;color:rgba(255,255,255,0.4);font-size:18px;cursor:pointer;transition:color 0.2s;}
+.popup-close:hover{color:#00ffff;}
+.popup-logo{width:80px;border-radius:50%;object-fit:cover;}
+.popup-title{font-size:20px;font-weight:700;letter-spacing:3px;text-transform:uppercase;background:linear-gradient(90deg,#00ffff,#ff00ff);-webkit-background-clip:text;color:transparent;}
+.input-group{width:100%;}
+.popup-input{width:100%;background:#1a1a1a;border:1px solid #ffffff22;border-radius:8px;padding:12px 16px;font-size:14px;color:#fff;outline:none;transition:border-color 0.3s,box-shadow 0.3s;}
+.popup-input::placeholder{color:rgba(255,255,255,0.3);}
+.popup-input:focus{border-color:#00ffff;box-shadow:0 0 10px #00ffff44;}
+.popup-btn{width:100%;padding:12px;border:1px solid #00ffff44;border-radius:8px;background:transparent;color:#00ffff;font-size:15px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:box-shadow 0.3s,border-color 0.3s,color 0.3s,transform 0.2s;margin-top:6px;}
+.popup-btn:hover{border-color:#00ffff;box-shadow:0 0 8px #00ffff,0 0 20px #00ffff88,inset 0 0 12px #00ffff22;color:#88ffff;transform:translateY(-2px);}
+.contact-popup{background:#111;border:1px solid #ffffff22;border-radius:16px;padding:40px 36px;width:340px;display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;box-shadow:0 0 40px #ffffff11,0 0 80px #00ffff11;transform:scale(0.9);transition:transform 0.3s;}
+.popup-overlay.open .contact-popup{transform:scale(1);}
+.contact-links{display:flex;flex-direction:column;width:100%;gap:10px;}
+.contact-item{display:flex;align-items:center;gap:14px;padding:11px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);text-decoration:none;color:#fff;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:border-color 0.3s,box-shadow 0.3s,color 0.3s,transform 0.2s;}
+.contact-item:hover{border-color:var(--neon);box-shadow:0 0 8px #00ffff,0 0 20px #00ffff88,inset 0 0 12px #00ffff22;color:#88ffff;transform:translateY(-2px);}
+.contact-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--neon);flex-shrink:0;}
+.contact-icon svg{width:22px;height:22px;}
+.location-btn{display:flex;align-items:center;gap:10px;width:100%;padding:12px 16px;border-radius:10px;border:1px solid #ffffff33;background:transparent;color:#fff;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;justify-content:center;transition:border-color 0.3s,box-shadow 0.3s,color 0.3s,transform 0.2s;margin-top:4px;}
+.location-btn:hover{border-color:#00ffff;box-shadow:0 0 8px #00ffff,0 0 20px #00ffff88,inset 0 0 12px #00ffff22;transform:translateY(-2px);}
+
+/* PNG POPUP */
+.png-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:8500;display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.png-overlay.open{opacity:1;pointer-events:all;}
+.png-popup{background:#0d0d0d;border:1px solid #00ff8833;border-radius:20px;padding:30px;width:90vw;max-width:1100px;height:80vh;display:flex;flex-direction:column;gap:16px;box-shadow:0 0 60px #00ff8822,0 0 120px #00ffff11;transform:scale(0.9);transition:transform 0.3s;position:relative;}
+.png-overlay.open .png-popup{transform:scale(1);}
+.png-popup-header{display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.png-popup-title{font-size:22px;font-weight:800;letter-spacing:4px;text-transform:uppercase;background:linear-gradient(90deg,#00ff88,#00ffff);-webkit-background-clip:text;color:transparent;}
+.png-popup-close{background:transparent;border:none;color:rgba(255,255,255,0.4);font-size:22px;cursor:pointer;transition:color 0.2s;flex-shrink:0;}
+.png-popup-close:hover{color:#00ff88;}
+.png-search{width:100%;background:#1a1a1a;border:1px solid #ffffff22;border-radius:10px;padding:12px 18px;font-size:14px;color:#fff;outline:none;transition:border-color 0.3s,box-shadow 0.3s;flex-shrink:0;}
+.png-search::placeholder{color:rgba(255,255,255,0.3);}
+.png-search:focus{border-color:#00ff88;box-shadow:0 0 10px #00ff8844;}
+.png-grid{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px;
+  justify-content: center;
+  align-content: start;
+  flex: 1;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+}
+.png-grid::-webkit-scrollbar{width:5px;}
+.png-grid::-webkit-scrollbar-track{background:#111;}
+.png-grid::-webkit-scrollbar-thumb{background:#00ff8855;border-radius:10px;}
+.png-card{
+  background: #151515;
+  border: 1px solid #ffffff11;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  width: 160px;
+  min-width: 160px;
+  max-width: 160px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.png-card:hover{transform:translateY(-6px) scale(1.03);border-color:#00ff88;box-shadow:0 0 12px #00ff8866,0 0 30px #00ff8833,inset 0 0 20px #00ff8811;}
+.png-card-img-wrap{width:100%;height:96px;min-height:96px;overflow:hidden;background:#1e1e1e;display:flex;align-items:center;justify-content:center;position:relative;}
+.png-card-img-wrap img{max-width:90%;max-height:88px;width:auto;height:auto;object-fit:contain;transition:transform 0.4s;display:block;}
+.png-card:hover .png-card-img-wrap img{transform:scale(1.12) rotate(2deg);}
+.png-card-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.05) 0%,transparent 60%);opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.png-card:hover .png-card-img-wrap::after{opacity:1;}
+.png-card-info{width:100%;padding:10px 12px;display:flex;flex-direction:column;align-items:center;}
+.png-card-name{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
+
+/* SITE SEARCH */
+.site-search-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:9000;display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.site-search-overlay.open{opacity:1;pointer-events:all;}
+.site-search-box{background:#0d0d0d;border:1px solid #4285f444;border-radius:20px;padding:30px;width:90vw;max-width:900px;height:80vh;display:flex;flex-direction:column;gap:16px;box-shadow:0 0 60px #4285f422;transform:scale(0.9);transition:transform 0.3s;position:relative;}
+.site-search-overlay.open .site-search-box{transform:scale(1);}
+.site-search-header{display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.site-search-title{font-size:18px;font-weight:800;letter-spacing:3px;text-transform:uppercase;background:linear-gradient(90deg,#4285f4,#ea4335,#fbbc05,#34a853);-webkit-background-clip:text;color:transparent;}
+.site-search-close{background:transparent;border:none;color:rgba(255,255,255,0.4);font-size:22px;cursor:pointer;transition:color 0.2s;}
+.site-search-close:hover{color:#fff;}
+.site-search-query{font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;flex-shrink:0;}
+.site-search-results{overflow-y:auto;display:flex;flex-direction:column;gap:24px;padding-right:6px;flex:1;min-height:0;}
+.site-search-results::-webkit-scrollbar{width:5px;}
+.site-search-results::-webkit-scrollbar-thumb{background:#4285f455;border-radius:10px;}
+.search-section-label{font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;text-shadow:0 0 8px currentColor;}
+.search-mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,130px));gap:12px;justify-content:start;}
+.search-mini-card{background:#151515;border:1px solid #ffffff11;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;align-items:center;width:130px;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;}
+.search-mini-card:hover{transform:translateY(-5px);border-color:#00ff88;box-shadow:0 0 12px #00ff8866;}
+.search-mini-img{width:100%;height:90px;background:#1e1e1e;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;}
+.search-mini-img img{max-width:90%;max-height:82px;object-fit:contain;}
+.search-mini-info{padding:8px;width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.search-mini-name{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
+.search-mini-dl{width:100%;padding:6px;border:1px solid #00ff8844;border-radius:7px;background:transparent;color:#00ff88;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;text-align:center;display:block;transition:box-shadow 0.3s,background 0.3s;}
+.search-mini-dl:hover{background:#00ff8815;box-shadow:0 0 10px #00ff88;}
+.search-portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,150px));gap:12px;justify-content:start;}
+.search-port-card{background:#151515;border:1px solid #ffffff11;border-radius:12px;overflow:hidden;width:150px;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;}
+.search-port-card:hover{transform:translateY(-5px);border-color:#00ffff;box-shadow:0 0 12px #00ffff66;}
+.search-port-img{width:100%;height:110px;overflow:hidden;background:#1e1e1e;}
+.search-port-img img{width:100%;height:100%;object-fit:cover;}
+.search-port-info{padding:10px;text-align:center;}
+.search-port-name{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+.search-port-type{font-size:9px;letter-spacing:1px;color:#00ffff;margin-top:3px;}
+.search-no-result{text-align:center;padding:60px 20px;color:rgba(255,255,255,0.25);letter-spacing:3px;font-size:13px;text-transform:uppercase;}
+
+/* HERO */
+.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;}
+.hero h1{font-size:140px;letter-spacing:10px;font-weight:900;background:linear-gradient(180deg,#ffffff,#cfcfcf,#ffffff);-webkit-background-clip:text;color:transparent;text-shadow:0 1px 0 #bbb,0 2px 0 #aaa,0 3px 0 #999,0 4px 0 #888,0 5px 0 #777;transition:.4s;}
+.hero h1:hover{animation:glitch .5s infinite;text-shadow:2px 2px #ff0055,-2px -2px #00ffff,0 0 20px white;}
+@keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(-2px,-2px)}60%{transform:translate(2px,2px)}80%{transform:translate(2px,-2px)}100%{transform:translate(0)}}
+.character{position:absolute;top:15%;width:480px;z-index:3;pointer-events:none;}
+.hero p{margin-top:220px;font-size:30px;opacity:.7;}
+
+.category-buttons{display:flex;gap:16px;justify-content:center;margin-top:35px;flex-wrap:wrap;}
+.cat-btn{position:relative;background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:10px 28px;font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;overflow:hidden;transition:color 0.3s,border-color 0.3s,box-shadow 0.3s,transform 0.2s;backdrop-filter:blur(6px);}
+.cat-btn::before{content:'';position:absolute;inset:0;background:currentColor;opacity:0;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease,opacity 0.35s ease;z-index:0;}
+.cat-btn:hover::before{transform:scaleX(1);opacity:0.12;}
+.cat-btn:nth-child(1){color:#ff00ff;border-color:#ff00ff44;}
+.cat-btn:nth-child(1):hover{border-color:#ff00ff;box-shadow:0 0 8px #ff00ff,0 0 20px #ff00ff88,0 0 40px #ff00ff44,inset 0 0 12px #ff00ff22;color:#ff88ff;transform:translateY(-3px);}
+.cat-btn:nth-child(2){color:#00ffff;border-color:#00ffff44;}
+.cat-btn:nth-child(2):hover{border-color:#00ffff;box-shadow:0 0 8px #00ffff,0 0 20px #00ffff88,0 0 40px #00ffff44,inset 0 0 12px #00ffff22;color:#88ffff;transform:translateY(-3px);}
+.cat-btn:nth-child(3){color:#ff6600;border-color:#ff660044;}
+.cat-btn:nth-child(3):hover{border-color:#ff6600;box-shadow:0 0 8px #ff6600,0 0 20px #ff660088,0 0 40px #ff660044,inset 0 0 12px #ff660022;color:#ffaa66;transform:translateY(-3px);}
+.cat-btn:nth-child(4){color:#00ff88;border-color:#00ff8844;}
+.cat-btn:nth-child(4):hover{border-color:#00ff88;box-shadow:0 0 8px #00ff88,0 0 20px #00ff8888,0 0 40px #00ff8844,inset 0 0 12px #00ff8822;color:#88ffcc;transform:translateY(-3px);}
+.cat-btn:active{transform:translateY(0px) scale(0.97);}
+
+.search-container{margin-top:35px;display:flex;flex-direction:column;align-items:center;gap:18px;}
+.search-box-wrapper{position:relative;border-radius:26px;padding:2px;background:transparent;transition:box-shadow 0.3s;width:550px;max-width:92vw;}
+.search-box-wrapper.active{background:linear-gradient(90deg,#4285f4,#ea4335,#fbbc05,#34a853,#4285f4);background-size:300% 300%;animation:gradientRun 2s linear infinite;box-shadow:0 0 18px rgba(66,133,244,0.35);}
+@keyframes gradientRun{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.google-search-box{display:flex;align-items:center;background:#fff;border-radius:24px;padding:0 14px;width:100%;height:48px;cursor:text;}
+.search-icon-left{width:20px;height:20px;fill:#9aa0a6;flex-shrink:0;}
+.google-search-input{flex:1;border:none;outline:none;font-size:16px;color:#222;background:transparent;padding:0 12px;height:100%;font-family:arial,sans-serif;}
+.google-search-input::placeholder{color:#9aa0a6;}
+.search-right-icons{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.voice-icon,.lens-icon{width:22px;height:22px;cursor:pointer;opacity:0.8;transition:opacity 0.2s,transform 0.2s;}
+.voice-icon:hover,.lens-icon:hover{opacity:1;transform:scale(1.15);}
+.google-search-buttons{display:flex;gap:20px;}
+.gsearch-btn-wrapper{position:relative;border-radius:25px;padding:2px;background:#e8eaed;transition:background 0.3s,box-shadow 0.3s;}
+.gsearch-btn-wrapper:hover{background:linear-gradient(90deg,#4285f4,#ea4335,#fbbc05,#34a853,#4285f4);background-size:300% 300%;animation:gradientRun 2s linear infinite;box-shadow:0 0 12px rgba(66,133,244,0.3);}
+.gsearch-btn{display:block;background:#f8f9fa;color:#3c4043;border:none;border-radius:25px;padding:7px 15px;font-size:20px;cursor:pointer;font-family:arial,sans-serif;transition:color 0.2s;white-space:nowrap;}
+.gsearch-btn:hover{color:#1a1a1a;}
+
+section{padding:120px 10%;}
+.title{font-size:40px;margin-bottom:50px;}
+.work-grid{display:grid;height:350px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;}
+.work{position:relative;overflow:hidden;border-radius:10px;}
+.work img{width:100%;height:100%;display:block;transition:.3s;}
+.work:hover img{transform:scale(1.1);}
+.overlay{position:absolute;bottom:0;left:0;right:0;text-align:center;background:rgba(0,0,0,0.7);padding:8px;transform:translateY(100%); color:White;transition:.3s;}
+.work:hover .overlay{transform:translateY(0);}
+.about{max-width:700px;line-height:1.7;opacity:.8;}
+footer{text-align:center;padding:40px;opacity:.5;}
+
+ 
+
+@media(max-width:768px){
+  .home-btn{width:55px;top:15px;left:15px;}
+  .menu-btn{width:55px;top:15px;right:15px;}
+  .menu-dropdown{top:85px;right:15px;gap:8px;}
+  .menu-item{padding:8px 18px;font-size:12px;letter-spacing:1.5px;}
+  .hero{flex-direction:column;justify-content:center;align-items:center;padding-top:100px;gap:10px;}
+  .character{position:relative;top:auto;width:180px;opacity:1;z-index:1;}
+  .hero h1{position:relative;font-size:48px;letter-spacing:4px;z-index:2;margin-top:0;}
+  .hero p{position:relative;font-size:15px;margin-top:0;z-index:2;}
+  .category-buttons{gap:10px;margin-top:22px;padding:0 10px;}
+  .cat-btn{padding:8px 14px;font-size:11px;letter-spacing:1.5px;}
+  .search-box-wrapper{width:92vw;max-width:92vw;}
+  .google-search-input{font-size:14px;}
+  .google-search-buttons{gap:8px;}
+  .gsearch-btn{font-size:12px;padding:9px 10px;}
+  section{padding:80px 6%;}
+  .title{font-size:28px;margin-bottom:30px;}
+  .work-grid{grid-template-columns:1fr;gap:18px;}
+  .about{font-size:15px;}
+  footer{padding:30px 20px;font-size:13px;}
+  .login-popup{width:88vw;padding:32px 22px;gap:14px;}
+  .popup-title{font-size:16px;letter-spacing:2px;}
+  .popup-input{font-size:13px;padding:11px 14px;}
+  .popup-btn{font-size:13px;letter-spacing:2px;}
+  .popup-ghost-btn{font-size:10px;letter-spacing:1px;padding:9px 6px;}
+  .contact-popup{width:88vw;padding:32px 22px;gap:14px;}
+  .contact-item{font-size:12px;letter-spacing:1.5px;padding:10px 14px;}
+  .contact-icon{width:28px;height:28px;}
+  .contact-icon svg{width:18px;height:18px;}
+  .location-btn{font-size:11px;letter-spacing:1.5px;padding:11px 14px;}
+  .reload-logo{font-size:36px;letter-spacing:5px;}
+  .reload-bar-wrap{width:160px;}
+  .png-popup{padding:20px 16px;width:95vw;height:88vh;}
+  .png-grid{grid-template-columns:repeat(auto-fill,130px);gap:10px;}
+  .png-card{
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
+}
+  .png-popup-title{font-size:16px;letter-spacing:2px;}
+  .site-search-box{padding:20px 16px;width:95vw;height:88vh;}
+  .search-mini-grid{grid-template-columns:repeat(auto-fill,minmax(110px,110px));}
+  .search-mini-card{width:110px;}
+}
+@media(max-width:400px){
+  .character{width:150px;}
+  .hero h1{font-size:36px;letter-spacing:3px;}
+  .hero p{font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<a href="#"><img src="home.jpg" class="home-btn"></a>
+<a href="#"><img src="menu.jpg" class="menu-btn"></a>
+
+<div class="menu-dropdown" id="menuDropdown">
+  <button class="menu-item">Log In</button>
+  <button class="menu-item">Sign Up</button>
+  <button class="menu-item">Contact</button>
+  <button class="menu-item">About</button>
+</div>
+
+<div class="popup-overlay" id="loginOverlay">
+  <div class="login-popup">
+    <button class="popup-close" id="closeLogin">✕</button>
+    <img src="main.jpg" class="popup-logo">
+    <h2 class="popup-title">Welcome Back</h2>
+    <div class="input-group"><input type="text" placeholder="Number or Email" class="popup-input"></div>
+    <div class="input-group"><input type="password" placeholder="Password" class="popup-input"></div>
+    <button class="popup-btn">Log In</button>
+    <div class="popup-bottom-btns">
+      <button class="popup-ghost-btn">Forgot Password</button>
+      <button class="popup-ghost-btn">Sign Up</button>
+    </div>
+  </div>
+</div>
+
+<div class="popup-overlay" id="contactOverlay">
+  <div class="contact-popup">
+    <button class="popup-close" id="closeContact">✕</button>
+    <img src="main.jpg" class="popup-logo">
+    <h2 class="popup-title">Contacts</h2>
+    <div class="contact-links">
+      <a href="https://www.facebook.com/cyrus.draco.2025" target="_blank" class="contact-item">
+        <div class="contact-icon" style="--neon:#1877f2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div><span>Facebook</span>
+      </a>
+      <a href="https://www.instagram.com/imtutheshark/" target="_blank" class="contact-item">
+        <div class="contact-icon" style="--neon:#e1306c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div><span>Instagram</span>
+      </a>
+      <a href="https://wa.me/8801340915283" target="_blank" class="contact-item">
+        <div class="contact-icon" style="--neon:#25d366"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.523 5.832L0 24l6.336-1.501A11.934 11.934 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.371l-.36-.214-3.728.883.936-3.619-.235-.372A9.818 9.818 0 0 1 2.182 12C2.182 6.575 6.575 2.182 12 2.182S21.818 6.575 21.818 12 17.425 21.818 12 21.818z"/></svg></div><span>WhatsApp</span>
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&to=starimtu@gmail.com" class="contact-item">
+        <div class="contact-icon" style="--neon:#ea4335"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 9.548l8.073-6.055C21.69 2.28 24 3.434 24 5.457z"/></svg></div><span>Gmail</span>
+      </a>
+    </div>
+    <a href="#" class="location-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Location
+    </a>
+  </div>
+</div>
+
+<!-- PNG POPUP — body direct child -->
+<div class="png-overlay" id="pngOverlay">
+  <div class="png-popup">
+    <div class="png-popup-header">
+      <h2 class="png-popup-title">✦ PNG Files</h2>
+      <button class="png-popup-close" id="closePng">✕</button>
+    </div>
+    <input type="text" class="png-search" id="pngSearch" placeholder="Search PNG files...">
+    <div class="png-grid" id="pngGrid"></div>
+  </div>
+</div>
+
+<!-- SITE SEARCH POPUP — body direct child -->
+<div class="site-search-overlay" id="siteSearchOverlay">
+  <div class="site-search-box">
+    <div class="site-search-header">
+      <div class="site-search-title">Search Results</div>
+      <button class="site-search-close" id="closeSiteSearch">✕</button>
+    </div>
+    <div class="site-search-query" id="siteSearchQuery"></div>
+    <div class="site-search-results" id="siteSearchResults"></div>
+  </div>
+</div>
+
+<!-- HERO — কোনো popup নেই -->
+<section class="hero">
+  <img src="main.jpg" class="character">
+  <h1>IMTU'S<br>CREATIONS</h1>
+  <p>Graphics Designer & Photo Artist & Kali Expert</p>
+  <br>
+  <div class="category-buttons">
+    <button class="cat-btn">Logo</button>
+    <button class="cat-btn">Banner</button>
+    <button class="cat-btn">Poster</button>
+    <button class="cat-btn">Png</button>
+  </div>
+  <div class="search-container">
+    <div class="search-box-wrapper" id="searchWrapper">
+      <div class="google-search-box">
+        <svg class="search-icon-left" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search in Imtu's Creations..." class="google-search-input" autocomplete="off">
+        <div class="search-right-icons">
+          <svg class="voice-icon" id="voiceBtn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="#4285f4" d="M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3z"/>
+            <path fill="#34a853" d="M17 12c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-2.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+          <svg class="lens-icon" id="lensBtn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+            <rect fill="none" height="192" width="192"/>
+            <g>
+              <circle fill="#34a853" cx="144.07" cy="144" r="16"/>
+              <circle fill="#4285f4" cx="48.07" cy="144" r="16"/>
+              <circle fill="#ea4335" cx="48.07" cy="48" r="16"/>
+              <circle fill="#fbbc05" cx="144.07" cy="48" r="16"/>
+              <path fill="#4285f4" d="M96 64c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32S113.7 64 96 64zm0 48c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16z"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="google-search-buttons">
+      <div class="gsearch-btn-wrapper">
+        <button class="gsearch-btn" onclick="doSearch()">Search</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+ 
+
+<section id="work">
+  <h2 class="title">PORT-FOLIO</h2>
+  <div class="work-grid">
+    <div class="work"><img src="adposter3.jpg"><div class="overlay">Poster</div></div>
+    <div class="work"><img src="BR.png"><div class="overlay">Documents</div></div>
+    <div class="work"><img src="https://picsum.photos/500?3"><div class="overlay">Social Media Design</div></div>
+    <div class="work"><img src="ramadan.jpg"><div class="overlay">Special</div></div>
+    <div class="work"><img src="creative.jpg"><div class="overlay">Creative</div></div>
+  </div>
+</section>
+
+<section id="work">
+  <h2 class="title">ANDROID MODDED APKS</h2>
+  <div class="work-grid">
+ 
+    <a href="apks.html" class="work-grid">
+        <div class="work">
+            <img src="capcut.jpg" alt="CapCut">
+            <div class="overlay">CAPCUT</div>
+        </div>
+    </a>
+
+    <a href="apks.html" class="work-grid">
+        <div class="work">
+            <img src="MX.jpg" alt="MX Player">
+            <div class="overlay">MX PLAYER</div>
+        </div>
+    </a>
+
+    <a href="apks.html" class="work-grid">
+        <div class="work">
+            <img src="TERA.png" alt="Terabox">
+            <div class="overlay">TERABOX</div>
+        </div>
+    </a>
+
+    <a href="apks.html" class="work-grid">
+        <div class="work">
+            <img src="chatgpt.jpg" alt="ChatGPT">
+            <div class="overlay">CHAT GPT</div>
+        </div>
+    </a>
+
+    <a href="apks.html" class="work-grid">
+        <div class="work">
+            <img src="REMINI.jpg" alt="Remini">
+            <div class="overlay">REMINI</div>
+        </div>
+    </a>
+
+</div>
+</section>
+<section id="work">
+  <h2 class="title" onclick="window.location.href='studio.html'">Imtu's Digital Studio</h2>
+</section>
+
+<section id="about">
+  <h2 class="title">About</h2>
+  <p class="about">IMTU'S Creations is a graphic design studio focused on modern visual design, branding and digital graphics. I create bold and creative designs that help brands stand out.</p>
+</section>
+
+<section id="contact">
+  <h2 class="title">Contact</h2>
+  <p>Email: starimtu@gmail.com</p>
+  <p>Instagram: @imtu_the_shark</p>
+</section>
+
+<footer>© 2026 IMTU'S Creations</footer>
+
+<script>
+const pngFiles = [
+  { name: "Oil Paint Portugal Flag", src: "oil paint portugal flag.png" },
+  { name: "Bangladesh Map",          src: "bdmap.png" },
+  { name: "Bangladesh Flag",         src: "bdflag.png" },
+  { name: "India Flag",              src: "inflag.png" },
+  { name: "India Round Flag",        src: "inround.png" },
+  { name: "Portugal Flag",           src: "ptflag.png" },
+  { name: "Portugal Penant Flag",    src: "ptpenant.png" },
+  { name: "FB Logo",                 src: "fbl.png" },
+  { name: "3D Location",             src: "3dlo.png" },
+  { name: "3D Suitcase",             src: "3dsuit.png" },
+  { name: "Whatsapp Logo",           src: "whatlo.png" },
+  { name: "Viber Logo",              src: "viber.png" },
+  { name: "Kalima",                  src: "kalima.png" },
+  { name: "Eid Lantern",             src: "lantern.png" },
+  { name: "Eid Banner",              src: "arabesuqe.png" },
+  { name: "White Clouds",            src: "clouds.png" },
+];
+
+const portfolioItems = [
+  { name: "Poster",              src: "adposter3.jpg",               type: "Poster" },
+  { name: "Documents",           src: "BR.png",                      type: "Document" },
+  { name: "Social Media Design", src: "https://picsum.photos/500?3", type: "Social Media" },
+  { name: "Special",             src: "ramadan.jpg",                 type: "Special" },
+  { name: "Creative",            src: "creative.jpg",                type: "Creative" },
+];
+
+function openViewer(src, name) {
+  const existing = document.getElementById('pngViewer');
+  if (existing) existing.remove();
+  const viewer = document.createElement('div');
+  viewer.id = 'pngViewer';
+  viewer.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px;';
+  viewer.innerHTML = `
+    <style>
+      #pngViewer img{max-width:88vw;max-height:68vh;object-fit:contain;border-radius:12px;border:1px solid #00ff8844;box-shadow:0 0 40px #00ff8833;animation:zoomInV .25s ease forwards;}
+      @keyframes zoomInV{from{transform:scale(0.85);opacity:0}to{transform:scale(1);opacity:1}}
+      .viewer-name{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+      .viewer-btns{display:flex;gap:14px;}
+      .viewer-dl{padding:10px 28px;border:1px solid #00ff88;border-radius:10px;background:transparent;color:#00ff88;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:box-shadow .3s,background .3s,transform .2s;}
+      .viewer-dl:hover{background:#00ff8815;box-shadow:0 0 12px #00ff88;transform:translateY(-2px);}
+      .viewer-close{padding:10px 28px;border:1px solid #ffffff33;border-radius:10px;background:transparent;color:rgba(255,255,255,0.5);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:border-color .3s,color .3s,transform .2s;}
+      .viewer-close:hover{border-color:#fff;color:#fff;transform:translateY(-2px);}
+    </style>
+    <img src="${src}" alt="${name}">
+    <div class="viewer-name">${name}</div>
+    <div class="viewer-btns">
+      <a href="${src}" download="${name}.png" class="viewer-dl">⬇ Download</a>
+      <button class="viewer-close" id="closeViewer">✕ Close</button>
+    </div>
+  `;
+  document.body.appendChild(viewer);
+  document.getElementById('closeViewer').addEventListener('click', () => viewer.remove());
+  viewer.addEventListener('click', e => { if (e.target === viewer) viewer.remove(); });
+}
+
+function renderPngGrid(filter = '') {
+  const grid = document.getElementById('pngGrid');
+  const filtered = pngFiles.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,0.3);letter-spacing:2px;font-size:13px;">No PNG found...</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(f => `
+    <div class="png-card" onclick="openViewer('${f.src}','${f.name}')">
+      <div class="png-card-img-wrap">
+        <img src="${f.src}" alt="${f.name}" loading="lazy">
+      </div>
+      <div class="png-card-info">
+        <div class="png-card-name">${f.name}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
+  const ql = q.toLowerCase();
+  document.getElementById('siteSearchQuery').textContent = 'Showing results for: "' + q + '"';
+  const results = document.getElementById('siteSearchResults');
+  results.innerHTML = '';
+  let total = 0;
+  const matchedPngs = pngFiles.filter(f => f.name.toLowerCase().includes(ql));
+  if (matchedPngs.length > 0) {
+    total += matchedPngs.length;
+    const sec = document.createElement('div');
+    sec.innerHTML = `
+      <div class="search-section-label" style="color:#00ff88;">✦ PNG Files (${matchedPngs.length})</div>
+      <div class="search-mini-grid">
+        ${matchedPngs.map(f => `
+          <div class="search-mini-card">
+            <div class="search-mini-img" onclick="openViewer('${f.src}','${f.name}')"><img src="${f.src}" alt="${f.name}" loading="lazy"></div>
+            <div class="search-mini-info">
+              <div class="search-mini-name">${f.name}</div>
+              <a href="${f.src}" download="${f.name}.png" class="search-mini-dl">⬇ Download</a>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    results.appendChild(sec);
+  }
+  const matchedPort = portfolioItems.filter(p => p.name.toLowerCase().includes(ql) || p.type.toLowerCase().includes(ql));
+  if (matchedPort.length > 0) {
+    total += matchedPort.length;
+    const sec = document.createElement('div');
+    sec.innerHTML = `
+      <div class="search-section-label" style="color:#00ffff;">✦ Portfolio (${matchedPort.length})</div>
+      <div class="search-portfolio-grid">
+        ${matchedPort.map(p => `
+          <div class="search-port-card">
+            <div class="search-port-img"><img src="${p.src}" alt="${p.name}" loading="lazy"></div>
+            <div class="search-port-info"><div class="search-port-name">${p.name}</div><div class="search-port-type">${p.type}</div></div>
+          </div>`).join('')}
+      </div>`;
+    results.appendChild(sec);
+  }
+  if (total === 0) {
+    results.innerHTML = `<div class="search-no-result"><div style="font-size:36px;margin-bottom:16px;">🔍</div>No results found for "${q}"</div>`;
+  }
+  document.getElementById('siteSearchOverlay').classList.add('open');
+}
+
+const menuBtn = document.querySelector('.menu-btn');
+const menuDropdown = document.getElementById('menuDropdown');
+menuBtn.addEventListener('click', () => menuDropdown.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) menuDropdown.classList.remove('open');
+});
+
+document.querySelector('.home-btn').addEventListener('click', e => {
+  e.preventDefault();
+  const overlay = document.createElement('div');
+  overlay.id = 'reloadOverlay';
+  for (let i = 1; i <= 4; i++) { const r = document.createElement('div'); r.className = 'ring'; overlay.appendChild(r); }
+  const sl = document.createElement('div'); sl.className = 'scanlines'; overlay.appendChild(sl);
+  const colors = ['#00ffff','#ff00ff','#00ff88','#ffffff','#ff6600'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div'); p.className = 'particle';
+    const angle = Math.random() * 360, dist = 80 + Math.random() * 160;
+    p.style.cssText = `left:50%;top:50%;background:${colors[Math.floor(Math.random()*colors.length)]};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;box-shadow:0 0 6px currentColor;animation-delay:${Math.random()*0.3}s;`;
+    overlay.appendChild(p);
+  }
+  overlay.innerHTML += `<div class="reload-core"><div class="reload-logo">IMTU'S</div><div class="reload-bar-wrap"><div class="reload-bar"></div></div><div class="reload-sub">Loading...</div></div>`;
+  document.body.appendChild(overlay);
+  setTimeout(() => window.location.reload(), 900);
+});
+
+document.querySelectorAll('.menu-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.textContent.trim();
+    if (t === 'Log In') { document.getElementById('loginOverlay').classList.add('open'); menuDropdown.classList.remove('open'); }
+    if (t === 'Contact') { document.getElementById('contactOverlay').classList.add('open'); menuDropdown.classList.remove('open'); }
+  });
+});
+
+document.getElementById('closeLogin').addEventListener('click', () => document.getElementById('loginOverlay').classList.remove('open'));
+document.getElementById('loginOverlay').addEventListener('click', e => { if (e.target === document.getElementById('loginOverlay')) document.getElementById('loginOverlay').classList.remove('open'); });
+document.getElementById('closeContact').addEventListener('click', () => document.getElementById('contactOverlay').classList.remove('open'));
+document.getElementById('contactOverlay').addEventListener('click', e => { if (e.target === document.getElementById('contactOverlay')) document.getElementById('contactOverlay').classList.remove('open'); });
+
+const pngOverlay = document.getElementById('pngOverlay');
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  if (btn.textContent.trim() === 'Png') {
+    btn.addEventListener('click', () => { pngOverlay.classList.add('open'); renderPngGrid(); });
+  }
+});
+document.getElementById('closePng').addEventListener('click', () => pngOverlay.classList.remove('open'));
+pngOverlay.addEventListener('click', e => { if (e.target === pngOverlay) pngOverlay.classList.remove('open'); });
+document.getElementById('pngSearch').addEventListener('input', e => renderPngGrid(e.target.value));
+
+document.getElementById('closeSiteSearch').addEventListener('click', () => document.getElementById('siteSearchOverlay').classList.remove('open'));
+document.getElementById('siteSearchOverlay').addEventListener('click', e => { if (e.target === document.getElementById('siteSearchOverlay')) document.getElementById('siteSearchOverlay').classList.remove('open'); });
+
+const input = document.getElementById('searchInput');
+const wrapper = document.getElementById('searchWrapper');
+input.addEventListener('focus', () => wrapper.classList.add('active'));
+input.addEventListener('blur', () => wrapper.classList.remove('active'));
+input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+wrapper.addEventListener('mouseenter', () => wrapper.classList.add('active'));
+wrapper.addEventListener('mouseleave', () => { if (document.activeElement !== input) wrapper.classList.remove('active'); });
+document.getElementById('voiceBtn').addEventListener('click', () => window.open('https://www.google.com/search?q=&gs_ivs=1','_blank'));
+document.getElementById('lensBtn').addEventListener('click', () => window.open('https://lens.google.com/search?p=','_blank'));
+</script>
+</body>
+<!-- MARQUEE — hero এর বাইরে -->
+<div style="width:100%;background:linear-gradient(90deg,#0a0a0a,#111,#0a0a0a);border-top:1px solid #00ffff22;border-bottom:1px solid #00ffff22;padding:12px 0;overflow:hidden;white-space:nowrap;">
+  <marquee behavior="scroll" direction="left" scrollamount="5" style="font-size:15px;letter-spacing:2px;color:#00ffff;text-shadow:0 0 8px #00ffff88;">
+    ✦ Welcome to Imtu's Creative World &nbsp;&nbsp;|&nbsp;&nbsp;
+    Logo Designs &nbsp;✦&nbsp; Poster Designs &nbsp;✦&nbsp; Banner Designs &nbsp;✦&nbsp;
+    Social Media Post Mockups &nbsp;✦&nbsp; Editable Documents &nbsp;✦&nbsp;
+    Important Seals &nbsp;✦&nbsp; Important PNG Files &nbsp;— All For Free! &nbsp;&nbsp;|&nbsp;&nbsp;
+    ✦ Welcome to Imtu's Creative World &nbsp;&nbsp;|&nbsp;&nbsp;
+    Logo Designs &nbsp;✦&nbsp; Poster Designs &nbsp;✦&nbsp; Banner Designs &nbsp;✦&nbsp;
+    Social Media Post Mockups &nbsp;✦&nbsp; Editable Documents &nbsp;✦&nbsp;
+    Important PNG Files &nbsp;— All For Free!
+  </marquee>
+</div>
+</html>
