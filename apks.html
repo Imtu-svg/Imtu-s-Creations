@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMTU'S APK Hub - 100+ Android Apps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 20px 5%;
+            border-bottom: 1px solid #00ff8833;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #00ff88, #00ffff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .total {
+            font-size: 15px;
+            background: #00ff8833;
+            color: #00ff88;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 520px;
+            background: #111;
+            border: 2px solid #00ff8844;
+            border-radius: 50px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus-within {
+            border-color: #00ff88;
+            box-shadow: 0 0 20px #00ff8844;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 17px;
+        }
+
+        .search-box input::placeholder {
+            color: #888;
+        }
+
+        .main-container {
+            padding: 40px 5%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .app-card {
+            display: block;
+            background: #181818;
+            border-radius: 22px;
+            padding: 24px 18px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid #ffffff11;
+        }
+
+        .app-card:hover {
+            transform: translateY(-12px) scale(1.04);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.25);
+            border-color: #00ff88;
+        }
+
+        .app-card img {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s;
+        }
+
+        .app-card:hover img {
+            transform: scale(1.12) rotate(6deg);
+        }
+
+        .app-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .app-version {
+            font-size: 14px;
+            color: #00ff88;
+            font-weight: 600;
+            background: #00ff8811;
+            padding: 4px 14px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 80px 20px;
+            font-size: 18px;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 18px;
+            }
+            .app-card {
+                padding: 20px 14px;
+            }
+            .app-card img {
+                width: 82px;
+                height: 82px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">IMTU'S APK HUB</div>
+        <div class="total" id="totalApps">১০০+ মোড অ্যাপস রেডি</div>
+        
+        <div class="search-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2">
+                <circle cx="11" cy="10" r="7"></circle>
+                <path d="M21 21l-6-6"></path>
+            </svg>
+            <input type="text" id="searchInput" placeholder="অ্যাপের নাম খুঁজুন... (যেমন: WhatsApp, bKash)">
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="grid" id="appGrid"></div>
+    </div>
+
+    <footer>
+        © ২০২৬ IMTU'S Creations • সব অ্যাপ ফ্রি ডাউনলোড • ক্লিক করলেই ডাউনলোড শুরু হবে
+    </footer>
+
+    <script>
+        // ==================== এখানে আপনার সব অ্যাপ যোগ করুন ====================
+        // আপনি ১০০+ অ্যাপ রাখতে পারবেন। শুধু নিচের অ্যারেতে নতুন অবজেক্ট যোগ করুন।
+        const apps = [
+            {
+                name: "Chat GPT",
+                version: "2.24.12.80",
+                icon: "chatgpt.jpg",
+                apk: "ChatGPT.apk"   // ← এখানে আপনার আসল APK লিঙ্ক দিন
+            },
+            {
+                name: "Instagram",
+                version: "350.0.0.0.109",
+                icon: "https://picsum.photos/id/201/200/200",
+                apk: "https://your-domain.com/apks/instagram.apk"
+            },
+            {
+                name: "Facebook",
+                version: "480.0.0.0.12",
+                icon: "https://picsum.photos/id/30/200/200",
+                apk: "https://your-domain.com/apks/facebook.apk"
+            },
+            {
+                name: "YouTube",
+                version: "19.45.36",
+                icon: "https://picsum.photos/id/40/200/200",
+                apk: "https://your-domain.com/apks/youtube.apk"
+            },
+            {
+                name: "bKash",
+                version: "4.8.0",
+                icon: "https://picsum.photos/id/50/200/200",
+                apk: "https://your-domain.com/apks/bkash.apk"
+            },
+            {
+                name: "Pathao",
+                version: "5.2.1",
+                icon: "https://picsum.photos/id/60/200/200",
+                apk: "https://your-domain.com/apks/pathao.apk"
+            },
+            {
+                name: "Nagad",
+                version: "4.2.5",
+                icon: "https://picsum.photos/id/70/200/200",
+                apk: "https://your-domain.com/apks/nagad.apk"
+            },
+            {
+                name: "Telegram",
+                version: "11.5.3",
+                icon: "https://picsum.photos/id/80/200/200",
+                apk: "https://your-domain.com/apks/telegram.apk"
+            },
+            {
+                name: "CapCut",
+                version: "23.1.0",
+                icon: "CapCut.jpg",
+                apk: "CapCut.apk"
+            },
+            {
+                name: "Truecaller",
+                version: "14.5.0",
+                icon: "https://picsum.photos/id/100/200/200",
+                apk: "https://your-domain.com/apks/truecaller.apk"
+            },
+            {
+                name: "Gmail",
+                version: "2024.03.15",
+                icon: "https://picsum.photos/id/110/200/200",
+                apk: "https://your-domain.com/apks/gmail.apk"
+            },
+            {
+                name: "Spotify",
+                version: "9.1.5",
+                icon: "https://picsum.photos/id/120/200/200",
+                apk: "https://your-domain.com/apks/spotify.apk"
+            },
+            {
+                name: "MX Player",
+                version: "1.60.12",
+                icon: "https://picsum.photos/id/130/200/200",
+                apk: "https://your-domain.com/apks/mxplayer.apk"
+            },
+            {
+                name: "Canva",
+                version: "2.300.0",
+                icon: "https://picsum.photos/id/140/200/200",
+                apk: "https://your-domain.com/apks/canva.apk"
+            },
+            {
+                name: "Adobe Lightroom",
+                version: "9.0.1",
+                icon: "https://picsum.photos/id/150/200/200",
+                apk: "https://your-domain.com/apks/lightroom.apk"
+            },
+            {
+                name: "10 Minute School",
+                version: "2.1.8",
+                icon: "https://picsum.photos/id/160/200/200",
+                apk: "https://your-domain.com/apks/10minuteschool.apk"
+            },
+            {
+                name: "Daraz",
+                version: "7.5.0",
+                icon: "https://picsum.photos/id/170/200/200",
+                apk: "https://your-domain.com/apks/daraz.apk"
+            },
+            {
+                name: "Foodpanda",
+                version: "5.0.0",
+                icon: "https://picsum.photos/id/180/200/200",
+                apk: "https://your-domain.com/apks/foodpanda.apk"
+            },
+            {
+                name: "VLC for Android",
+                version: "3.6.0",
+                icon: "https://picsum.photos/id/190/200/200",
+                apk: "https://your-domain.com/apks/vlc.apk"
+            },
+            {
+                name: "Signal",
+                version: "7.5.1",
+                icon: "https://picsum.photos/id/200/200/200",
+                apk: "https://your-domain.com/apks/signal.apk"
+            },
+			  {
+                name: "Canva",
+                version: "2.300.0",
+                icon: "https://picsum.photos/id/140/200/200",
+                apk: "https://your-domain.com/apks/canva.apk"
+            },
+            {
+                name: "Adobe Lightroom",
+                version: "9.0.1",
+                icon: "https://picsum.photos/id/150/200/200",
+                apk: "https://your-domain.com/apks/lightroom.apk"
+            },
+            {
+                name: "10 Minute School",
+                version: "2.1.8",
+                icon: "https://picsum.photos/id/160/200/200",
+                apk: "https://your-domain.com/apks/10minuteschool.apk"
+            },
+            {
+                name: "Daraz",
+                version: "7.5.0",
+                icon: "https://picsum.photos/id/170/200/200",
+                apk: "https://your-domain.com/apks/daraz.apk"
+            },
+            {
+                name: "Foodpanda",
+                version: "5.0.0",
+                icon: "https://picsum.photos/id/180/200/200",
+                apk: "https://your-domain.com/apks/foodpanda.apk"
+            },
+            {
+                name: "VLC for Android",
+                version: "3.6.0",
+                icon: "https://picsum.photos/id/190/200/200",
+                apk: "https://your-domain.com/apks/vlc.apk"
+            },
+            {
+                name: "Signal",
+                version: "7.5.1",
+                icon: "https://picsum.photos/id/200/200/200",
+                apk: "https://your-domain.com/apks/signal.apk"
+            },  {
+                name: "Canva",
+                version: "2.300.0",
+                icon: "https://picsum.photos/id/140/200/200",
+                apk: "https://your-domain.com/apks/canva.apk"
+            },
+            {
+                name: "Adobe Lightroom",
+                version: "9.0.1",
+                icon: "https://picsum.photos/id/150/200/200",
+                apk: "https://your-domain.com/apks/lightroom.apk"
+            },
+            {
+                name: "10 Minute School",
+                version: "2.1.8",
+                icon: "https://picsum.photos/id/160/200/200",
+                apk: "https://your-domain.com/apks/10minuteschool.apk"
+            },
+            {
+                name: "Daraz",
+                version: "7.5.0",
+                icon: "https://picsum.photos/id/170/200/200",
+                apk: "https://your-domain.com/apks/daraz.apk"
+            },
+            {
+                name: "Foodpanda",
+                version: "5.0.0",
+                icon: "https://picsum.photos/id/180/200/200",
+                apk: "https://your-domain.com/apks/foodpanda.apk"
+            },
+            {
+                name: "VLC for Android",
+                version: "3.6.0",
+                icon: "https://picsum.photos/id/190/200/200",
+                apk: "https://your-domain.com/apks/vlc.apk"
+            },
+            {
+                name: "Signal",
+                version: "7.5.1",
+                icon: "https://picsum.photos/id/200/200/200",
+                apk: "https://your-domain.com/apks/signal.apk"
+            },  {
+                name: "Canva",
+                version: "2.300.0",
+                icon: "https://picsum.photos/id/140/200/200",
+                apk: "https://your-domain.com/apks/canva.apk"
+            },
+            {
+                name: "Adobe Lightroom",
+                version: "9.0.1",
+                icon: "https://picsum.photos/id/150/200/200",
+                apk: "https://your-domain.com/apks/lightroom.apk"
+            },
+            {
+                name: "10 Minute School",
+                version: "2.1.8",
+                icon: "https://picsum.photos/id/160/200/200",
+                apk: "https://your-domain.com/apks/10minuteschool.apk"
+            },
+            {
+                name: "Daraz",
+                version: "7.5.0",
+                icon: "https://picsum.photos/id/170/200/200",
+                apk: "https://your-domain.com/apks/daraz.apk"
+            },
+            {
+                name: "Foodpanda",
+                version: "5.0.0",
+                icon: "https://picsum.photos/id/180/200/200",
+                apk: "https://your-domain.com/apks/foodpanda.apk"
+            },
+            {
+                name: "VLC for Android",
+                version: "3.6.0",
+                icon: "https://picsum.photos/id/190/200/200",
+                apk: "https://your-domain.com/apks/vlc.apk"
+            },
+            {
+                name: "Signal",
+                version: "7.5.1",
+                icon: "https://picsum.photos/id/200/200/200",
+                apk: "https://your-domain.com/apks/signal.apk"
+            },  {
+                name: "Canva",
+                version: "2.300.0",
+                icon: "https://picsum.photos/id/140/200/200",
+                apk: "https://your-domain.com/apks/canva.apk"
+            },
+            {
+                name: "Adobe Lightroom",
+                version: "9.0.1",
+                icon: "https://picsum.photos/id/150/200/200",
+                apk: "https://your-domain.com/apks/lightroom.apk"
+            },
+            {
+                name: "10 Minute School",
+                version: "2.1.8",
+                icon: "https://picsum.photos/id/160/200/200",
+                apk: "https://your-domain.com/apks/10minuteschool.apk"
+            },
+            {
+                name: "Daraz",
+                version: "7.5.0",
+                icon: "https://picsum.photos/id/170/200/200",
+                apk: "https://your-domain.com/apks/daraz.apk"
+            },
+            {
+                name: "Foodpanda",
+                version: "5.0.0",
+                icon: "https://picsum.photos/id/180/200/200",
+                apk: "https://your-domain.com/apks/foodpanda.apk"
+            },
+            {
+                name: "VLC for Android",
+                version: "3.6.0",
+                icon: "https://picsum.photos/id/190/200/200",
+                apk: "https://your-domain.com/apks/vlc.apk"
+            },
+            {
+                name: "Signal",
+                version: "7.5.1",
+                icon: "https://picsum.photos/id/200/200/200",
+                apk: "https://your-domain.com/apks/signal.apk"
+            },
+            // ==================== এখান থেকে নতুন অ্যাপ যোগ করুন (১০০+ পর্যন্ত) ====================
+            // উদাহরণ:
+            // {
+            //     name: "আপনার অ্যাপের নাম",
+            //     version: "1.0.0",
+            //     icon: "https://picsum.photos/id/210/200/200",
+            //     apk: "https://your-domain.com/apks/yourapp.apk"
+            // },
+        ];
+
+        // কার্ড রেন্ডার করার ফাংশন
+        function renderApps(filteredApps) {
+            const grid = document.getElementById('appGrid');
+            grid.innerHTML = '';
+
+            if (filteredApps.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-result">
+                        <h2>😕 কোনো অ্যাপ পাওয়া যায়নি</h2>
+                        <p>অন্য কীওয়ার্ড দিয়ে সার্চ করুন</p>
+                    </div>`;
+                return;
+            }
+
+            filteredApps.forEach(app => {
+                const cardHTML = `
+                    <a href="${app.apk}" download="${app.name}.apk" class="app-card">
+                        <img src="${app.icon}" alt="${app.name}">
+                        <div class="app-name">${app.name}</div>
+                        <div class="app-version">v${app.version}</div>
+                    </a>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        // সার্চ ফাংশন
+        function filterApps() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = apps.filter(app => 
+                app.name.toLowerCase().includes(query)
+            );
+            renderApps(filtered);
+        }
+
+        // পেজ লোড হলে প্রথমবার সব অ্যাপ দেখাবে
+        window.onload = function() {
+            renderApps(apps);
+
+            // সার্চ ইনপুটে টাইপ করলে ফিল্টার হবে
+            document.getElementById('searchInput').addEventListener('input', filterApps);
+
+            // মোট অ্যাপ দেখাবে (আপনি যতগুলো রাখবেন তত দেখাবে)
+            console.log(`✅ ${apps.length}টি অ্যাপ লোড হয়েছে। আরও যোগ করুন!`);
+        };
+    </script>
+</body>
+</html>

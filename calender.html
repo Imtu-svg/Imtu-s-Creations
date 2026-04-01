@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>বাংলা ক্যালেন্ডার - লাইভ (হিজরি সংশোধিত)</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #f3e5f5, #e8eaf6); margin:0; padding:15px; }
+    .container { max-width: 920px; margin:0 auto; background:white; border-radius:20px; box-shadow:0 15px 50px rgba(0,0,0,0.15); overflow:hidden; }
+    .header { background:#6a1b9a; color:white; padding:25px; text-align:center; }
+    .header h1 { margin:0 0 10px 0; font-size:26px; }
+    .live-time { font-size:21px; background:rgba(255,255,255,0.25); padding:10px 25px; border-radius:50px; display:inline-block; margin:10px 0; }
+    .current-date { font-size:18px; margin-top:8px; }
+    .calendar { padding:25px; }
+    .month-title { text-align:center; font-size:28px; color:#6a1b9a; margin-bottom:20px; }
+    .grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; text-align:center; }
+    .day-header { background:#e1bee7; padding:14px; font-weight:bold; color:#6a1b9a; border-radius:10px; }
+    .day { background:#f8f1fc; padding:12px 6px; min-height:105px; border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,0.08); }
+    .day:hover { background:#f3e5f5; transform:translateY(-3px); }
+    .eng-date { font-size:24px; font-weight:bold; color:#333; }
+    .bn-date { font-size:15px; color:#6a1b9a; margin-top:4px; }
+    .hijri { font-size:13.5px; color:#d32f2f; margin-top:6px; font-weight:500; }
+    .today { background:#e8f5e9 !important; border:3px solid #4caf50; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>বাংলা ক্যালেন্ডার (ইংরেজি, বাংলা ও আরবি)</h1>
+    <div class="live-time" id="liveTime">বর্তমান সময় লোড হচ্ছে...</div>
+    <div class="current-date" id="currentBanglaDate"></div>
+  </div>
+
+  <div class="calendar">
+    <div class="month-title" id="monthTitle"></div>
+    <div class="grid" id="calendarGrid"></div>
+  </div>
+</div>
+
+<script>
+// Bengali months
+const bnMonths = ["বৈশাখ","জ্যৈষ্ঠ","আষাঢ়","শ্রাবণ","ভাদ্র","আশ্বিন","কার্তিক","অগ্রহায়ণ","পৌষ","মাঘ","ফাল্গুন","চৈত্র"];
+const dayHeaders = ["রবি","সোম","মঙ্গল","বুধ","বৃহঃ","শুক্র","শনি"];
+const hijriMonths = ["মুহাররম","সফর","রবিউল আউয়াল","রবিউস সানি","জমাদিউল আউয়াল","জমাদিউস সানি","রজব","শাবান","রমজান","শাওয়াল","জিলকদ","জিলহজ্জ"];
+
+// Improved Hijri approximation (better for 2026)
+function getHijri(date) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  // Base for April 2026 (1 Apr = 13 Shawwal 1447)
+  let hijriDay = day + 12;   // offset for April 2026
+  let hijriMonth = 9;        // Shawwal = 10th month (0-based index 9)
+  let hijriYear = 1447;
+
+  if (hijriDay > 30) {
+    hijriDay -= 30;
+    hijriMonth = 10;         // Dhul Qadah
+  }
+  if (hijriMonth > 11) {
+    hijriMonth = 0;
+    hijriYear++;
+  }
+
+  return `${hijriDay} ${hijriMonths[hijriMonth]} ${hijriYear}`;
+}
+
+// Bengali date (approximate)
+function gregorianToBengali(date) {
+  let y = date.getFullYear();
+  let m = date.getMonth();
+  let d = date.getDate();
+
+  let bYear = (m >= 3 && d >= 14) ? y - 592 : y - 593;   // Adjusted for BD calendar
+
+  const boishakhStart = new Date(y, 3, 14); // 14 April
+  let diff = Math.floor((date - boishakhStart) / (86400000));
+
+  let bMonthIndex = diff < 0 ? 11 : Math.floor(diff / 30) % 12;
+  let bDay = diff < 0 ? 30 + diff + 1 : (diff % 30) + 1;
+
+  return { year: bYear, month: bnMonths[bMonthIndex], day: bDay, monthIndex: bMonthIndex };
+}
+
+function updateLive() {
+  const now = new Date();
+  const timeEl = document.getElementById('liveTime');
+  const bnTime = now.toLocaleTimeString('bn-BD', {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true});
+  const enTime = now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true});
+  timeEl.innerHTML = `বর্তমান সময়: <strong>${bnTime}</strong> | ${enTime}`;
+
+  const bn = gregorianToBengali(now);
+  const hijri = getHijri(now);
+  const weekday = now.toLocaleDateString('bn-BD', {weekday:'long'});
+
+  document.getElementById('currentBanglaDate').innerHTML = `
+    আজ ${weekday} • ${now.getDate()} ${now.toLocaleString('bn-BD',{month:'long'})} ${now.getFullYear()} • 
+    ${bn.day} ${bn.month} ${bn.year} বঙ্গাব্দ • ${hijri} হিজরি
+  `;
+}
+
+function renderCalendar() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const grid = document.getElementById('calendarGrid');
+  grid.innerHTML = '';
+
+  dayHeaders.forEach(h => {
+    const div = document.createElement('div');
+    div.className = 'day-header';
+    div.textContent = h;
+    grid.appendChild(div);
+  });
+
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement('div'); empty.className = 'day'; grid.appendChild(empty);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(year, month, d);
+    const bn = gregorianToBengali(date);
+    const hijri = getHijri(date);
+    const isToday = (d === now.getDate() && month === now.getMonth() && year === now.getFullYear());
+
+    const div = document.createElement('div');
+    div.className = `day ${isToday ? 'today' : ''}`;
+    div.innerHTML = `
+      <div class="eng-date">${d}</div>
+      <div class="bn-date">${bn.day} ${bn.month}</div>
+      <div class="hijri">${hijri}</div>
+    `;
+    grid.appendChild(div);
+  }
+
+  const monthName = now.toLocaleString('bn-BD', {month:'long', year:'numeric'});
+  const bnNow = gregorianToBengali(now);
+  document.getElementById('monthTitle').textContent = `${monthName} • ${bnNow.month} ${bnNow.year}`;
+}
+
+// Initialize
+updateLive();
+renderCalendar();
+setInterval(updateLive, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imtu's Digital studio - Free Online Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&family=Tiro+Bangla&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1558b0;
+    --accent: #fbbc04;
+    --accent2: #34a853;
+    --danger: #ea4335;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #202124;
+    --text-muted: #5f6368;
+    --border: #dadce0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.09);
+    --shadow-hover: 0 6px 24px rgba(26,115,232,0.18);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --header-h: 64px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', 'Noto Sans Bengali', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== ANNOUNCEMENT BAR ===== */
+  .announce-bar {
+    background: linear-gradient(90deg, #1a73e8 0%, #0d47a1 100%);
+    color: #fff;
+    text-align: center;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .announce-bar a {
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255,255,255,0.22);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: background .2s;
+  }
+  .announce-bar a:hover { background: rgba(255,255,255,0.38); }
+
+  /* ===== HEADER ===== */
+  header {
+    background: #fff;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.10);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: var(--header-h);
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    box-shadow: 0 3px 10px rgba(26,115,232,0.35);
+  }
+  .logo-text { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.1; }
+  .logo-text span { color: var(--primary); display: block; font-size: 11px; font-weight: 500; letter-spacing: .5px; }
+
+  nav { display: flex; gap: 4px; align-items: center; }
+  nav a {
+    padding: 7px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: all .18s;
+  }
+  nav a:hover { background: #e8f0fe; color: var(--primary); }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+  .hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #0d47a1 0%, #1a73e8 55%, #1565c0 100%);
+    padding: 64px 20px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: .4px;
+  }
+  .hero h1 { font-size: clamp(26px,5vw,46px); font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.15; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: rgba(255,255,255,0.85); font-size: clamp(14px,2vw,17px); max-width: 580px; margin: 0 auto 28px; line-height: 1.6; }
+  .hero-stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-top: 10px; }
+  .hero-stat { color: #fff; text-align: center; }
+  .hero-stat strong { display: block; font-size: 24px; font-weight: 800; }
+  .hero-stat small { font-size: 12px; opacity: .8; }
+
+  /* ===== SEARCH ===== */
+  .search-wrap {
+    max-width: 560px; margin: 0 auto;
+    padding: 0 20px;
+    transform: translateY(-28px);
+  }
+  .search-box {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    display: flex; align-items: center;
+    padding: 6px 8px 6px 18px;
+    gap: 8px;
+  }
+  .search-box input {
+    flex: 1; border: none; outline: none;
+    font-size: 15px; font-family: 'Poppins', sans-serif;
+    color: var(--text); background: transparent;
+    padding: 8px 0;
+  }
+  .search-box input::placeholder { color: var(--text-muted); }
+  .search-btn {
+    background: var(--primary); color: #fff; border: none;
+    padding: 10px 20px; border-radius: 10px; cursor: pointer;
+    font-size: 14px; font-weight: 600; font-family: 'Poppins', sans-serif;
+    transition: background .18s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .search-btn:hover { background: var(--primary-dark); }
+
+  /* ===== SOCIAL STRIP ===== */
+  .social-strip {
+    background: #fff3e0;
+    border-bottom: 1px solid #ffe0b2;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 13px; color: #5d4037;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+  }
+  .social-strip a {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 14px; border-radius: 20px; text-decoration: none;
+    font-weight: 600; font-size: 13px; transition: opacity .18s;
+  }
+  .social-strip a:hover { opacity: .85; }
+  .soc-wa { background: #25d366; color: #fff; }
+  .soc-fb { background: #1877f2; color: #fff; }
+  .soc-yt { background: #ff0000; color: #fff; }
+
+  /* ===== SECTION HEADERS ===== */
+  .section-header {
+    max-width: 1280px; margin: 0 auto;
+    padding: 40px 20px 20px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .section-header h2 { font-size: 22px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; }
+  .section-header h2 .sec-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 15px;
+  }
+  .section-label {
+    background: #e8f0fe; color: var(--primary);
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  }
+
+  /* ===== TRENDING BANNER ===== */
+  .trending-banner {
+    max-width: 1280px; margin: 8px auto 0;
+    padding: 0 20px;
+  }
+  .trending-card {
+    background: linear-gradient(90deg, #fff8e1, #fff3cd);
+    border: 1.5px solid #ffc107;
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer; transition: box-shadow .2s;
+  }
+  .trending-card:hover { box-shadow: var(--shadow-hover); }
+  .trending-card .trend-icon { font-size: 24px; }
+  .trending-card .trend-text strong { display: block; font-size: 14px; color: #7b3f00; }
+  .trending-card .trend-text span { font-size: 12px; color: #a0522d; }
+  .trend-btn {
+    margin-left: auto; background: #ff6f00; color: #fff;
+    border: none; padding: 8px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    font-family: 'Poppins', sans-serif; transition: background .18s; white-space: nowrap;
+  }
+  .trend-btn:hover { background: #e65100; }
+
+  /* ===== PROMO BANNERS ===== */
+  .promo-section { max-width: 1280px; margin: 0 auto; padding: 10px 20px; }
+  .promo-scroll { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; }
+  .promo-scroll::-webkit-scrollbar { height: 4px; }
+  .promo-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+  .promo-scroll::-webkit-scrollbar-thumb { background: #c1d4f5; border-radius: 4px; }
+  .promo-card {
+    flex: 0 0 220px; height: 120px; border-radius: 12px;
+    overflow: hidden; scroll-snap-align: start;
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 13px; text-align: center;
+    padding: 14px; cursor: pointer; transition: transform .2s;
+    position: relative;
+  }
+  .promo-card:hover { transform: scale(1.03); }
+  .promo-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+  }
+  .promo-card:nth-child(2) { background: linear-gradient(135deg, #e53935, #b71c1c); }
+  .promo-card:nth-child(3) { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
+  .promo-card:nth-child(4) { background: linear-gradient(135deg, #6a1b9a, #4a148c); }
+  .promo-card:nth-child(5) { background: linear-gradient(135deg, #e65100, #bf360c); }
+
+  /* ===== TOOLS GRID ===== */
+  .tools-section { max-width: 1280px; margin: 0 auto; padding: 8px 20px 40px; }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 14px;
+  }
+
+  .tool-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 14px 16px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; gap: 10px;
+    cursor: pointer;
+    transition: all .22s cubic-bezier(.4,0,.2,1);
+    position: relative; overflow: hidden;
+    text-decoration: none; color: inherit;
+    animation: cardIn .35s ease both;
+  }
+  @keyframes cardIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+  .tool-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
+  .tool-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--primary); transform: scaleX(0);
+    transition: transform .22s; transform-origin: left;
+  }
+  .tool-card:hover::after { transform: scaleX(1); }
+
+  .tool-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    transition: transform .22s;
+    flex-shrink: 0;
+  }
+  .tool-card:hover .tool-icon { transform: scale(1.1) rotate(-4deg); }
+
+  .tool-name { font-size: 12.5px; font-weight: 600; line-height: 1.3; color: var(--text); }
+  .tool-tag {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 10px;
+    position: absolute; top: 10px; right: 10px;
+  }
+  .tag-ai { background: #e8f5e9; color: #2e7d32; }
+  .tag-new { background: #fff8e1; color: #f57f17; }
+  .tag-hot { background: #fce4ec; color: #c62828; }
+  .tag-free { background: #e3f2fd; color: #1565c0; }
+
+  /* icon palette */
+  .ic-blue   { background: #e3f2fd; color: #1565c0; }
+  .ic-green  { background: #e8f5e9; color: #2e7d32; }
+  .ic-red    { background: #fce4ec; color: #c62828; }
+  .ic-orange { background: #fff3e0; color: #e65100; }
+  .ic-purple { background: #f3e5f5; color: #6a1b9a; }
+  .ic-teal   { background: #e0f2f1; color: #00695c; }
+  .ic-yellow { background: #fffde7; color: #f57f17; }
+  .ic-pink   { background: #fce4ec; color: #880e4f; }
+  .ic-indigo { background: #e8eaf6; color: #283593; }
+  .ic-brown  { background: #efebe9; color: #4e342e; }
+  .ic-cyan   { background: #e0f7fa; color: #006064; }
+  .ic-lime   { background: #f9fbe7; color: #558b2f; }
+
+  /* ===== SECTION DIVIDER ===== */
+  .sec-divider {
+    max-width: 1280px; margin: 0 auto 16px;
+    padding: 0 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sec-divider-line { flex: 1; height: 1px; background: var(--border); }
+  .sec-divider-label {
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    padding: 5px 16px; border-radius: 20px;
+    font-size: 12px; font-weight: 700; letter-spacing: .5px; white-space: nowrap;
+  }
+
+  /* ===== TRUST SECTION ===== */
+  .trust-section {
+    background: linear-gradient(135deg, #0d47a1 0%, #1a73e8 100%);
+    padding: 56px 20px;
+    margin-top: 48px;
+  }
+  .trust-inner { max-width: 1280px; margin: 0 auto; }
+  .trust-inner h2 { color: #fff; font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+  .trust-inner .trust-sub { color: rgba(255,255,255,0.8); font-size: 15px; margin-bottom: 36px; }
+  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .trust-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px; padding: 24px 20px;
+    backdrop-filter: blur(8px);
+    transition: background .2s;
+  }
+  .trust-card:hover { background: rgba(255,255,255,0.18); }
+  .trust-card h3 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .trust-card h3 .tc-icon { font-size: 20px; }
+  .trust-card p { color: rgba(255,255,255,0.82); font-size: 13.5px; line-height: 1.6; }
+  .trust-list { list-style: none; padding: 0; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .trust-list li { color: rgba(255,255,255,0.85); font-size: 13px; display: flex; align-items: flex-start; gap: 8px; }
+  .trust-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+  /* ===== FAQ ===== */
+  .faq-section { max-width: 860px; margin: 0 auto; padding: 56px 20px 40px; }
+  .faq-section h2 { font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 24px; text-align: center; }
+  .faq-item { border: 1.5px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; background: #fff; }
+  .faq-q {
+    padding: 16px 20px; font-size: 15px; font-weight: 600;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    user-select: none; transition: background .18s;
+  }
+  .faq-q:hover { background: #f8f9fa; }
+  .faq-q .faq-arrow { font-size: 18px; transition: transform .25s; color: var(--primary); }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 20px 16px; }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff; border-radius: 18px;
+    max-width: 540px; width: 100%;
+    max-height: 85vh; overflow-y: auto;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+    animation: modalIn .25s ease;
+  }
+  @keyframes modalIn { from { opacity:0; transform:scale(.95) translateY(20px); } to { opacity:1; transform:none; } }
+  .modal-header {
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    position: sticky; top: 0; background: #fff; z-index: 1; border-radius: 18px 18px 0 0;
+  }
+  .modal-header h3 { font-size: 17px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; }
+  .modal-close {
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background: #f1f3f4; cursor: pointer; font-size: 18px; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center;
+    transition: background .18s; flex-shrink: 0;
+  }
+  .modal-close:hover { background: #e0e0e0; }
+  .modal-body { padding: 22px 24px; }
+
+  /* ===== TOOL UI ELEMENTS ===== */
+  .upload-zone {
+    border: 2.5px dashed var(--border); border-radius: 12px;
+    padding: 36px 20px; text-align: center;
+    cursor: pointer; transition: all .2s; background: #fafafa;
+  }
+  .upload-zone:hover { border-color: var(--primary); background: #e8f0fe; }
+  .upload-zone .uz-icon { font-size: 36px; margin-bottom: 10px; }
+  .upload-zone p { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+  .upload-zone strong { color: var(--text); font-size: 14px; }
+
+  .btn-primary {
+    background: var(--primary); color: #fff; border: none;
+    padding: 11px 22px; border-radius: 10px; font-size: 14px; font-weight: 600;
+    cursor: pointer; font-family: 'Poppins', sans-serif;
+    transition: all .18s; display: inline-flex; align-items: center; gap: 7px;
+    width: 100%;  justify-content: center;
+  }
+  .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 14px rgba(26,115,232,0.3); }
+  .btn-success { background: var(--accent2); }
+  .btn-success:hover { background: #2e7d32; }
+  .btn-danger { background: var(--danger); }
+  .btn-danger:hover { background: #b71c1c; }
+  .btn-outline {
+    background: transparent; border: 1.5px solid var(--border);
+    color: var(--text); padding: 10px 20px; border-radius: 10px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    font-family: 'Poppins', sans-serif; transition: all .18s;
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .4px; }
+  .form-control {
+    width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: 9px; font-size: 14px; font-family: 'Poppins', sans-serif;
+    color: var(--text); background: #fff; outline: none;
+    transition: border-color .18s;
+  }
+  .form-control:focus { border-color: var(--primary); }
+
+  .tool-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .result-box { background: #f8f9fa; border: 1.5px solid var(--border); border-radius: 10px; padding: 14px; font-size: 14px; color: var(--text-muted); min-height: 70px; }
+  .copy-result { background: #e8f5e9; border: 1.5px solid #a5d6a7; border-radius: 10px; padding: 12px; font-size: 15px; font-weight: 600; color: #2e7d32; margin-top: 10px; }
+
+  /* ===== SECURE BADGE ===== */
+  .secure-badge {
+    display: flex; align-items: center; gap: 7px;
+    background: #e8f5e9; border: 1px solid #a5d6a7;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12.5px; color: #2e7d32; font-weight: 600;
+    margin-top: 14px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #1a1a2e; color: rgba(255,255,255,0.75);
+    padding: 44px 20px 20px;
+    margin-top: 0;
+  }
+  .footer-inner { max-width: 1280px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+  .footer-brand .logo-text { color: #fff; }
+  .footer-brand .logo-text span { color: rgba(255,255,255,.55); }
+  .footer-desc { color: rgba(255,255,255,.55); font-size: 13px; margin-top: 12px; line-height: 1.7; }
+  .footer-col h4 { color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-col ul li a { color: rgba(255,255,255,.6); text-decoration: none; font-size: 13px; transition: color .18s; }
+  .footer-col ul li a:hover { color: #fff; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    font-size: 12.5px; color: rgba(255,255,255,.45);
+  }
+  .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .18s; }
+  .footer-links a:hover { color: #fff; }
+  .dmca-badge { background: rgba(255,255,255,.07); border-radius: 8px; padding: 6px 12px; font-size: 11px; color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1); }
+
+  /* ===== WHATSAPP FLOAT ===== */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    background: #25d366; color: #fff; text-decoration: none;
+    width: 54px; height: 54px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .wa-float:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+
+  /* ===== MOBILE NAV ===== */
+  .mobile-nav {
+    display: none;
+    position: fixed; top: var(--header-h); left: 0; right: 0; bottom: 0;
+    background: #fff; z-index: 999; padding: 20px;
+    flex-direction: column; gap: 8px;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    padding: 14px 16px; border-radius: 10px;
+    text-decoration: none; color: var(--text); font-size: 15px; font-weight: 500;
+    transition: background .18s; border: 1px solid var(--border);
+  }
+  .mobile-nav a:hover { background: #e8f0fe; color: var(--primary); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    nav { display: none; }
+    .hamburger { display: flex; }
+    .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .trust-inner h2 { font-size: 20px; }
+  }
+  @media (max-width: 480px) {
+    .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .tool-card { padding: 14px 8px 12px; }
+    .tool-icon { width: 42px; height: 42px; font-size: 20px; }
+    .tool-name { font-size: 11px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 24px; }
+    .tool-grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* no result */
+  #no-result {
+    display: none; text-align: center; padding: 40px 20px;
+    color: var(--text-muted); font-size: 15px;
+  }
+  #no-result .nr-icon { font-size: 48px; margin-bottom: 12px; }
+
+  /* loading bar */
+  .page-loader {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    z-index: 9999;
+    animation: load 1.2s ease forwards;
+  }
+  @keyframes load { from { width: 0; opacity: 1; } 80% { width: 90%; opacity: 1; } to { width: 100%; opacity: 0; } }
+
+  /* stagger cards */
+  .tool-card:nth-child(1) { animation-delay: .02s; }
+  .tool-card:nth-child(2) { animation-delay: .04s; }
+  .tool-card:nth-child(3) { animation-delay: .06s; }
+  .tool-card:nth-child(4) { animation-delay: .08s; }
+  .tool-card:nth-child(5) { animation-delay: .10s; }
+  .tool-card:nth-child(6) { animation-delay: .12s; }
+  .tool-card:nth-child(7) { animation-delay: .14s; }
+  .tool-card:nth-child(8) { animation-delay: .16s; }
+</style>
+</head>
+<body>
+
+<div class="page-loader"></div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  <span>📢 Join us for new updates!</span>
+  <a href="#" onclick="return false;">💬 WhatsApp</a>
+  <a href="#" onclick="return false;">👍 Facebook</a>
+  <a href="#" onclick="return false;">▶ YouTube</a>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <div class="logo-icon">ID</div>
+      <div class="logo-text">Imtu's Digital studio<span>Free Online Digital Studio</span></div>
+    </a>
+    <nav>
+      <a href="#">🏠 Home</a>
+      <a href="#">ℹ️ About</a>
+      <a href="#">📝 Blog</a>
+      <a href="#">📖 How to Use</a>
+      <a href="#">📬 Contact</a>
+    </nav>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#">🏠 Home</a>
+  <a href="#">ℹ️ About</a>
+  <a href="#">📝 Blog</a>
+  <a href="#">📖 How to Use</a>
+  <a href="#">📬 Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">⭐ My Favorite Tools — 60+ Free Tools</div>
+  <h1>The Ultimate <span>Digital Studio</span><br>for Documents &amp; Media</h1>
+  <p>Dedicated to Studios, Photocopy &amp; Computer Shops. Access all digital studio tools for free. Professional quality. No software needed.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>60+</strong><small>Free Tools</small></div>
+    <div class="hero-stat"><strong>100%</strong><small>Secure</small></div>
+    <div class="hero-stat"><strong>0</strong><small>Server Uploads</small></div>
+    <div class="hero-stat"><strong>A4</strong><small>Print Ready</small></div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <div class="search-box">
+    <span style="font-size:18px;color:var(--text-muted);">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search any tool… e.g. Passport Photo, PDF, NID" oninput="filterTools(this.value)">
+    <button class="search-btn" onclick="filterTools(document.getElementById('searchInput').value)">Search</button>
+  </div>
+</div>
+
+<!-- SOCIAL STRIP -->
+<div class="social-strip">
+  <span>Join us to get updates 👉</span>
+  <a class="soc-wa" href="#" onclick="return false;">💬 WhatsApp</a>
+  <a class="soc-fb" href="#" onclick="return false;">👍 Facebook</a>
+  <a class="soc-yt" href="#" onclick="return false;">▶ YouTube</a>
+</div>
+
+<!-- TRENDING BANNER -->
+<div class="trending-banner">
+  <div class="trending-card" onclick="openModal('familyCard')">
+    <div class="trend-icon">🔥</div>
+    <div class="trend-text">
+      <strong>Trending: ফ্যামিলি কার্ড আবেদন ফরম ২০২৬</strong>
+      <span>Family Card Application Form 2026 — Click to Open</span>
+    </div>
+    <button class="trend-btn">Open Tool →</button>
+  </div>
+</div>
+
+<!-- PROMO BANNERS -->
+<div class="promo-section">
+  <div class="promo-scroll">
+    <div class="promo-card">🖥 Digital Products<br>Store</div>
+    <div class="promo-card">📷 Visa Processing<br>Course BD</div>
+    <div class="promo-card">📱 CamScanner<br>Premium</div>
+    <div class="promo-card">✨ Remini<br>Premium</div>
+    <div class="promo-card">🎨 Graphics Design<br>Files</div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section-header">
+  <h2><div class="sec-icon">📄</div>ID &amp; Document Tools</h2>
+  <span class="section-label">Essential Studio Tools</span>
+</div>
+<div class="tools-section">
+  <div class="tools-grid" id="toolsGrid">
+
+    <!-- ROW 1 -->
+    <div class="tool-card" onclick="window.location.href='https://www.sejda.com/pdf-editor'" >
+      <span class="tool-tag tag-hot">HOT</span>
+      <div class="tool-icon ic-blue">🪪</div>
+      <div class="tool-name">PDF Editor</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://image.pi7.org/resize-image-pixel'" >
+      <div class="tool-icon ic-indigo">🛂</div>
+      <div class="tool-name">Image Resize</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.cutout.pro/passport-photo-maker'">
+      <span class="tool-tag tag-hot">HOT</span>
+      <div class="tool-icon ic-teal">📸</div>
+      <div class="tool-name">Passport photo maker</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.canva.com/s/templates?query=cv+maker'">
+      <span class="tool-tag tag-free">FREE</span>
+      <div class="tool-icon ic-green">📋</div>
+      <div class="tool-name">Professional CV Maker</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.ilovepdf.com/merge_pdf'">
+      <span class="tool-tag tag-ai">AI</span>
+      <div class="tool-icon ic-purple">🤖</div>
+      <div class="tool-name">Merge Pdf</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.ilovepdf.com/organize-pdf'">
+      <span class="tool-tag tag-hot">HOT</span>
+      <div class="tool-icon ic-blue">📸</div>
+      <div class="tool-name">Delete Pdf Page/ Organise</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.ilovepdf.com/pdf_to_excel'">
+      <div class="tool-icon ic-orange">🖨</div>
+      <div class="tool-name">Pdf to Excel</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.ilovepdf.com/excel_to_pdf'">
+      <div class="tool-icon ic-pink">👫</div>
+      <div class="tool-name">Excel to Pdf</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.ilovepdf.com/pdf_to_word'" >
+      <div class="tool-icon ic-purple">✍</div>
+      <div class="tool-name">Pdf to Word</div>
+    </div>
+	<div class="tool-card" onclick="window.location.href='https://www.ilovepdf.com/word_to_pdf'" >
+      <div class="tool-icon ic-purple">✍</div>
+      <div class="tool-name">Word to Pdf</div>
+    </div>
+   	<div class="tool-card" onclick="window.location.href='https://tools.pdf24.org/en/change-pdf-page-size#s=1771401976700'" >
+      <div class="tool-icon ic-teal">🧹</div>
+      <div class="tool-name">Change PDF Page Size</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.remove.bg/'">
+      <span class="tool-tag tag-ai">AI</span>
+      <div class="tool-icon ic-red">🖼</div>
+      <div class="tool-name">Image BG Remover</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://smallpdf.com/compress-pdf#r=compress'">
+      <div class="tool-icon ic-blue">✂️</div>
+      <div class="tool-name">Compress Any File</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://cloudconvert.com/webp-to-jpg'">
+      <div class="tool-icon ic-orange">🔄</div>
+      <div class="tool-name">Webp to Jpeg</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://cloudconvert.com/heic-to-jpg'" >
+      <div class="tool-icon ic-red">📄</div>
+      <div class="tool-name">Heic to Jpeg</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://cloudconvert.com/heic-to-jpg'" >
+      <div class="tool-icon ic-indigo">🗂</div>
+      <div class="tool-name">Image to PDF</div>
+    </div>
+    <div class="tool-card" onclick="window.location.href='https://www.imagetotext.info/'">
+      <span class="tool-tag tag-ai">AI</span>
+      <div class="tool-icon ic-green">📝</div>
+      <div class="tool-name">Image to Text</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider">
+  <div class="sec-divider-line"></div>
+  <div class="sec-divider-label">🎨 Creative &amp; Business Tools</div>
+  <div class="sec-divider-line"></div>
+</div>
+
+<div class="tools-section">
+  <div class="tools-grid" id="toolsGrid3">
+    <div class="tool-card" onclick="openModal('weddingCard')" data-name="wedding memento card maker">
+      <span class="tool-tag tag-new">NEW</span>
+      <div class="tool-icon ic-pink">💍</div>
+      <div class="tool-name">Wedding Memento Card Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('usdConvert')" data-name="usd bdt converter dollar taka">
+      <div class="tool-icon ic-green">💵</div>
+      <div class="tool-name">USD to BDT Converter</div>
+    </div>
+    <div class="tool-card" onclick="openModal('ageCalc')" data-name="age calculator dob birth">
+      <div class="tool-icon ic-blue">🎂</div>
+      <div class="tool-name">Age Calculator</div>
+    </div>
+    <div class="tool-card" onclick="openModal('dateWords')" data-name="date to words bangla english">
+      <div class="tool-icon ic-teal">📅</div>
+      <div class="tool-name">Date to Words (BN-EN)</div>
+    </div>
+    <div class="tool-card" onclick="openModal('banglaToBanglish')" data-name="bangla to banglish phonetic">
+      <div class="tool-icon ic-orange">🔤</div>
+      <div class="tool-name">Bangla to Banglish</div>
+    </div>
+    <div class="tool-card" onclick="openModal('visitingCard')" data-name="visiting card business card maker">
+      <div class="tool-icon ic-indigo">💼</div>
+      <div class="tool-name">Visiting Card Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('qrCode')" data-name="qr code generator">
+      <div class="tool-icon ic-brown">📲</div>
+      <div class="tool-name">QR Code Generator</div>
+    </div>
+    <div class="tool-card" onclick="openModal('phonetic')" data-name="english bengali phonetic converter">
+      <div class="tool-icon ic-yellow">🔤</div>
+      <div class="tool-name">English to Bengali Phonetic</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider">
+  <div class="sec-divider-line"></div>
+  <div class="sec-divider-label">⚙️ Office &amp; Utility Tools</div>
+  <div class="sec-divider-line"></div>
+</div>
+
+<div class="tools-section">
+  <div class="tools-grid" id="toolsGrid4">
+    <div class="tool-card" onclick="openModal('qrScanner')" data-name="qr barcode scanner">
+      <div class="tool-icon ic-blue">📷</div>
+      <div class="tool-name">QR &amp; Barcode Scanner</div>
+    </div>
+    <div class="tool-card" onclick="openModal('a4Typing')" data-name="a4 page typing document">
+      <div class="tool-icon ic-indigo">⌨</div>
+      <div class="tool-name">A4 Page Typing</div>
+    </div>
+    <div class="tool-card" onclick="openModal('imgEnhancer')" data-name="image enhancer photo quality">
+      <span class="tool-tag tag-ai">AI</span>
+      <div class="tool-icon ic-purple">✨</div>
+      <div class="tool-name">Image Enhancer</div>
+    </div>
+    <div class="tool-card" onclick="openModal('stampWriter')" data-name="stamp document writer legal">
+      <div class="tool-icon ic-red">🖊</div>
+      <div class="tool-name">Stamp or Document Writer</div>
+    </div>
+    <div class="tool-card" onclick="openModal('excelSheet')" data-name="excel table sheet builder">
+      <div class="tool-icon ic-green">📊</div>
+      <div class="tool-name">Excel Table Sheet</div>
+    </div>
+    <div class="tool-card" onclick="openModal('aiPrompt')" data-name="ai editing prompt hub gemini">
+      <span class="tool-tag tag-ai">AI</span>
+      <div class="tool-icon ic-teal">🤖</div>
+      <div class="tool-name">AI Editing Prompt Hub</div>
+    </div>
+    <div class="tool-card" onclick="openModal('imgCompress')" data-name="image compressor kb limiter resize">
+      <div class="tool-icon ic-orange">🗜</div>
+      <div class="tool-name">Image Compressor &amp; KB Limiter</div>
+    </div>
+    <div class="tool-card" onclick="openModal('cashMemo')" data-name="cash memo receipt maker">
+      <div class="tool-icon ic-yellow">🧾</div>
+      <div class="tool-name">Cash Memo Maker</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider">
+  <div class="sec-divider-line"></div>
+  <div class="sec-divider-label">📑 Forms, IDs &amp; Legal</div>
+  <div class="sec-divider-line"></div>
+</div>
+
+<div class="tools-section">
+  <div class="tools-grid" id="toolsGrid5">
+    <div class="tool-card" onclick="openModal('barcode')" data-name="barcode generator code 128 ean">
+      <div class="tool-icon ic-brown">📊</div>
+      <div class="tool-name">Barcode Generator</div>
+    </div>
+    <div class="tool-card" onclick="openModal('teletalk')" data-name="teletalk photo signature resizer">
+      <div class="tool-icon ic-teal">📱</div>
+      <div class="tool-name">Teletalk Photo &amp; Sig Resizer</div>
+    </div>
+    <div class="tool-card" onclick="openModal('photoPrintLayout')" data-name="photo print layout a4 4r passport">
+      <span class="tool-tag tag-hot">HOT</span>
+      <div class="tool-icon ic-orange">🖨</div>
+      <div class="tool-name">Photo Print Layout</div>
+    </div>
+    <div class="tool-card" onclick="openModal('coverLetter')" data-name="job cover letter writing official">
+      <div class="tool-icon ic-blue">📨</div>
+      <div class="tool-name">Job &amp; Cover Letter Writing</div>
+    </div>
+    <div class="tool-card" onclick="openModal('a4Scan')" data-name="a4 document scan magic filter">
+      <span class="tool-tag tag-hot">HOT</span>
+      <div class="tool-icon ic-indigo">📠</div>
+      <div class="tool-name">A4 Document Scan</div>
+    </div>
+    <div class="tool-card" onclick="openModal('photoName')" data-name="photo name date adder">
+      <div class="tool-icon ic-pink">🏷</div>
+      <div class="tool-name">Photo Name &amp; Date Adder</div>
+    </div>
+    <div class="tool-card" onclick="openModal('studentId')" data-name="student id card maker school">
+      <span class="tool-tag tag-new">NEW</span>
+      <div class="tool-icon ic-green">🪪</div>
+      <div class="tool-name">Student ID Card Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('biodata')" data-name="biodata maker marriage cv">
+      <div class="tool-icon ic-purple">📄</div>
+      <div class="tool-name">Biodata Maker</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider">
+  <div class="sec-divider-line"></div>
+  <div class="sec-divider-label">🌐 More Tools</div>
+  <div class="sec-divider-line"></div>
+</div>
+
+<div class="tools-section">
+  <div class="tools-grid" id="toolsGrid6">
+    <div class="tool-card" onclick="openModal('translator')" data-name="english bengali translator">
+      <div class="tool-icon ic-blue">🌐</div>
+      <div class="tool-name">EN/BN Text Translator</div>
+    </div>
+    <div class="tool-card" onclick="openModal('heightWeight')" data-name="height weight converter unit">
+      <div class="tool-icon ic-green">📏</div>
+      <div class="tool-name">Height &amp; Weight Converter</div>
+    </div>
+    <div class="tool-card" onclick="openModal('multiPdf')" data-name="multi image to pdf converter">
+      <div class="tool-icon ic-red">🗂</div>
+      <div class="tool-name">Multi-Image to PDF</div>
+    </div>
+    <div class="tool-card" onclick="openModal('digitalSig')" data-name="digital signature pad draw">
+      <div class="tool-icon ic-indigo">✍</div>
+      <div class="tool-name">Digital Signature Pad</div>
+    </div>
+    <div class="tool-card" onclick="openModal('notice')" data-name="ready notice maker official">
+      <div class="tool-icon ic-teal">📢</div>
+      <div class="tool-name">Ready Notice Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('leaflet')" data-name="leaflet maker a4 design">
+      <div class="tool-icon ic-orange">🗞</div>
+      <div class="tool-name">Leaflet Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('landArea')" data-name="land area calculator decimal katha bigha">
+      <div class="tool-icon ic-brown">🏡</div>
+      <div class="tool-name">Land Area Calculator</div>
+    </div>
+    <div class="tool-card" onclick="openModal('omr')" data-name="omr sheet generator exam">
+      <div class="tool-icon ic-yellow">📝</div>
+      <div class="tool-name">OMR Sheet Generator</div>
+    </div>
+    <div class="tool-card" onclick="openModal('affidavit')" data-name="affidavit writer bangla legal">
+      <div class="tool-icon ic-red">⚖</div>
+      <div class="tool-name">Affidavit Writer</div>
+    </div>
+    <div class="tool-card" onclick="openModal('photocopyCalc')" data-name="photocopy cost calculator print">
+      <div class="tool-icon ic-lime">🖨</div>
+      <div class="tool-name">Photocopy Cost Calculator</div>
+    </div>
+    <div class="tool-card" onclick="openModal('examResult')" data-name="exam result check bangladesh">
+      <div class="tool-icon ic-indigo">📚</div>
+      <div class="tool-name">Exam Result Check BD</div>
+    </div>
+    <div class="tool-card" onclick="openModal('jobFinder')" data-name="job circular finder bangladesh">
+      <div class="tool-icon ic-blue">💼</div>
+      <div class="tool-name">Job Circular Finder BD</div>
+    </div>
+    <div class="tool-card" onclick="openModal('onlineServices')" data-name="online services apply bd government">
+      <div class="tool-icon ic-green">🏛</div>
+      <div class="tool-name">Online Services Apply BD</div>
+    </div>
+    <div class="tool-card" onclick="openModal('iPhoneConv')" data-name="iphone heic image converter">
+      <div class="tool-icon ic-cyan">📱</div>
+      <div class="tool-name">iPhone Image Converter</div>
+    </div>
+    <div class="tool-card" onclick="openModal('questionMaker')" data-name="exam question maker paper">
+      <div class="tool-icon ic-purple">❓</div>
+      <div class="tool-name">Exam Question Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('agreement')" data-name="agreement letter writing contract">
+      <div class="tool-icon ic-brown">🤝</div>
+      <div class="tool-name">Agreement Letter Writing</div>
+    </div>
+    <div class="tool-card" onclick="openModal('pdfMerge')" data-name="pdf merge split tool">
+      <div class="tool-icon ic-red">📑</div>
+      <div class="tool-name">PDF Merge &amp; Split</div>
+    </div>
+    <div class="tool-card" onclick="openModal('policeGD')" data-name="police gd writing application">
+      <div class="tool-icon ic-teal">🚓</div>
+      <div class="tool-name">Police GD Writing</div>
+    </div>
+    <div class="tool-card" onclick="openModal('classRoutine')" data-name="class routine maker school timetable">
+      <div class="tool-icon ic-green">📅</div>
+      <div class="tool-name">Class Routine Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('property')" data-name="property distribution inheritance farayej">
+      <div class="tool-icon ic-orange">🏠</div>
+      <div class="tool-name">Property Distribution</div>
+    </div>
+    <div class="tool-card" onclick="openModal('photoshopShortcuts')" data-name="photoshop shortcuts keyboard">
+      <div class="tool-icon ic-blue">🎨</div>
+      <div class="tool-name">Photoshop Shortcuts</div>
+    </div>
+    <div class="tool-card" onclick="openModal('salarySheet')" data-name="salary sheet maker employee">
+      <div class="tool-icon ic-lime">💰</div>
+      <div class="tool-name">Salary Sheet Maker</div>
+    </div>
+    <div class="tool-card" onclick="openModal('visaPhoto')" data-name="visa photo cropper country">
+      <div class="tool-icon ic-indigo">✈</div>
+      <div class="tool-name">Visa Photo Cropper</div>
+    </div>
+<div class="tool-card" onclick="window.location.href='calender.html'" style="cursor: pointer;">
+  <div class="tool-icon ic-teal">📆</div>
+  <div class="tool-name">Bengali Calendar</div>
+  <div style="font-size: 12px; color: #555; margin-top: 4px;">বাংলা + হিজরি ক্যালেন্ডার</div>
+</div>
+    <div class="tool-card" onclick="openModal('flightCheck')" data-name="airline ticket flight check">
+      <div class="tool-icon ic-blue">✈</div>
+      <div class="tool-name">Airline Ticket Check</div>
+    </div>
+    <div class="tool-card" onclick="openModal('visaCheck')" data-name="online visa check status">
+      <div class="tool-icon ic-orange">🌍</div>
+      <div class="tool-name">Online Visa Check</div>
+    </div>
+    <div class="tool-card" onclick="openModal('dateConvert')" data-name="date converter english bangla arabic hijri">
+      <div class="tool-icon ic-purple">🗓</div>
+      <div class="tool-name">Date Converter (EN-BN-AR)</div>
+    </div>
+    <div class="tool-card" onclick="openModal('travelTicket')" data-name="travel ticket booking bus train airline">
+      <div class="tool-icon ic-cyan">🎫</div>
+      <div class="tool-name">Travel Ticket Booking</div>
+    </div>
+    <div class="tool-card" onclick="openModal('eidCard')" data-name="eid card design mubarak">
+      <span class="tool-tag tag-new">NEW</span>
+      <div class="tool-icon ic-green">🌙</div>
+      <div class="tool-name">ঈদ কার্ড ডিজাইন</div>
+    </div>
+    <div class="tool-card" onclick="openModal('familyCard')" data-name="family card form 2026 application">
+      <span class="tool-tag tag-hot">HOT</span>
+      <div class="tool-icon ic-orange">👨‍👩‍👧</div>
+      <div class="tool-name">ফ্যামিলি কার্ড আবেদন ২০২৬</div>
+    </div>
+    <div class="tool-card" onclick="openModal('cloudDB')" data-name="studio cloud file database google drive">
+      <div class="tool-icon ic-blue">☁</div>
+      <div class="tool-name">Studio Cloud File Database</div>
+    </div>
+  </div>
+</div>
+
+<div id="no-result">
+  <div class="nr-icon">🔍</div>
+  <strong>No tool found!</strong><br>
+  <span>Try different keywords like "Passport", "PDF", "NID", "CV"</span>
+</div>
+
+<!-- TRUST SECTION -->
+<section class="trust-section">
+  <div class="trust-inner">
+    <h2>🛡 Trusted &amp; Secure Digital Studio Tools</h2>
+    <p class="trust-sub">ID Card Scanner Pro is built with a "Security-First" approach. Your documents never leave your device.</p>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <h3><span class="tc-icon">🔒</span> 100% Privacy Guaranteed</h3>
+        <p>We use advanced <strong>Client-Side Processing (WebAssembly)</strong>. Your sensitive documents are processed entirely within your browser's RAM.</p>
+        <ul class="trust-list">
+          <li>No Server Uploads — files never leave your device</li>
+          <li>Instant Privacy — data wiped on page refresh</li>
+          <li>No account or login required</li>
+        </ul>
+      </div>
+      <div class="trust-card">
+        <h3><span class="tc-icon">⚡</span> 60+ Professional AI-Powered Tools</h3>
+        <p>From AI Passport Photo Makers and Professional CV Builders to Legal Affidavit Templates — studio-quality output in seconds.</p>
+        <ul class="trust-list">
+          <li>100% responsive — Android, iPhone &amp; PC</li>
+          <li>No software installation needed</li>
+          <li>A4 &amp; Legal paper sizes, print-ready</li>
+        </ul>
+      </div>
+      <div class="trust-card">
+        <h3><span class="tc-icon">🖨</span> Print-Ready Every Time</h3>
+        <p>Every tool is calibrated for standard A4 and Legal paper sizes, perfect for professional studio printing.</p>
+        <ul class="trust-list">
+          <li>Auto-Resize technology for all screens</li>
+          <li>High-speed performance on all browsers</li>
+          <li>Free — no hidden fees or subscriptions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <h2>❓ Common Questions (FAQ)</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Is my personal data safe?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Yes. We use local browser processing. We have no access to your uploaded files, ensuring 100% document privacy. Everything is processed on your own device.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Are the outputs print-ready?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Absolutely. Every tool is calibrated for standard A4 and Legal paper sizes, perfect for professional printing in studios, photocopy shops, and computer centers.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Does it work on mobile?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Yes! Our Auto-Resize technology ensures high-speed performance on all mobile browsers and devices including Android and iPhone, without any software installation.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Are all tools completely free?
+      <span class="faq-arrow">▾</span>
+    </div>
+    <div class="faq-a">Yes, all 60+ tools are completely free to use. There are no hidden fees, subscriptions, or premium plans needed to access any tool on this platform.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">I</div>
+          <div class="logo-text">Imtu's Digital Studio<span>Free Online Digital Studio</span></div>
+        </div>
+        <p class="footer-desc">Your complete digital studio for documents, photos, and media. 60+ free tools for studios, photocopy shops, and computer centers. 100% secure, no server uploads.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">🏠 Home</a></li>
+          <li><a href="#">ℹ️ About Us</a></li>
+          <li><a href="#">📝 Blog</a></li>
+          <li><a href="#">📖 How to Use</a></li>
+          <li><a href="#">📬 Contact</a></li>
+          <li><a href="#">🗺 Sitemap</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Tools</h4>
+        <ul>
+          <li><a href="#" onclick="openModal('idCrop');return false;">ID Card to PDF</a></li>
+          <li><a href="#" onclick="openModal('passportPhoto');return false;">Passport Photo</a></li>
+          <li><a href="#" onclick="openModal('cvMaker');return false;">CV Maker</a></li>
+          <li><a href="#" onclick="openModal('bgRemove');return false;">BG Remover</a></li>
+          <li><a href="#" onclick="openModal('qrCode');return false;">QR Generator</a></li>
+          <li><a href="#" onclick="openModal('pdfMerge');return false;">PDF Merge</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Disclaimer</a></li>
+          <li><a href="#">Copyright</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Imtu's Digital Studio. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Disclaimer</a>
+        <a href="#">Copyright</a>
+      </div>
+      <div class="dmca-badge">🛡 DMCA Protected</div>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" href="#" onclick="return false;" title="Contact Support on WhatsApp">💬</a>
+
+<!-- ============================================================
+     MODALS
+     ============================================================ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <h3 id="modalTitle">Tool</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ===== MODALS =====
+const modalData = {
+
+  idCrop: {
+    title: '🪪 ID Card Crop to PDF',
+    body: `
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Capture Front &amp; Back photos of your ID card. Adjust borders, apply Magic Filter, and save as PDF.</p>
+      <div class="tool-grid-2">
+        <div>
+          <div class="form-group"><label>Front Side</label></div>
+          <div class="upload-zone" onclick="alert('File upload available in full version')">
+            <div class="uz-icon">📷</div>
+            <strong>Tap or Drop Front Image</strong>
+            <p>PNG, JPG, WEBP supported</p>
+          </div>
+        </div>
+        <div>
+          <div class="form-group"><label>Back Side</label></div>
+          <div class="upload-zone" onclick="alert('File upload available in full version')">
+            <div class="uz-icon">📷</div>
+            <strong>Tap or Drop Back Image</strong>
+            <p>PNG, JPG, WEBP supported</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin:14px 0;display:flex;gap:10px;flex-wrap:wrap;">
+        <label style="font-size:13px;font-weight:600;color:var(--text-muted);">Magic Filter:</label>
+        <label style="font-size:13px;cursor:pointer;"><input type="checkbox"> Enable Color Scan</label>
+        <label style="font-size:13px;cursor:pointer;"><input type="checkbox"> Enable B&W</label>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+        <button class="btn-primary" style="flex:1;" onclick="alert('Save as PDF — full feature in browser')">💾 Save as A4 PDF</button>
+        <button class="btn-outline" onclick="alert('Save as JPG')">📸 Save JPG</button>
+        <button class="btn-outline" onclick="alert('Direct Print')">🖨 Print</button>
+      </div>
+      <div class="secure-badge">🔒 100% Secure — Files never leave your device</div>`
+  },
+
+  passportPhoto: {
+    title: '📸 Passport Photo Maker',
+    body: `
+      <div class="form-group"><label>Photo Size</label>
+        <select class="form-control">
+          <option>Passport Size Photo (BD)</option>
+          <option>Stamp Size Photo</option>
+          <option>USA/India Passport (2x2 in)</option>
+        </select>
+      </div>
+      <div class="upload-zone" onclick="alert('Upload photo here')">
+        <div class="uz-icon">📸</div>
+        <strong>Tap to Import Photo</strong>
+        <p>Drag &amp; drop or click to upload</p>
+      </div>
+      <div class="form-group" style="margin-top:14px;"><label>A4 Grid Layout</label></div>
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Rows (Max 6)</label><input class="form-control" type="number" value="3" min="1" max="6"></div>
+        <div class="form-group"><label>Cols (Max 5)</label><input class="form-control" type="number" value="4" min="1" max="5"></div>
+      </div>
+      <div class="form-group"><label>Background Color</label>
+        <input type="color" value="#ffffff" style="width:100%;height:40px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;">
+      </div>
+      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:1;" onclick="alert('Save as PDF')">💾 Save A4 PDF</button>
+        <button class="btn-outline" onclick="alert('Single Photo')">📸 Single Photo</button>
+      </div>
+      <div class="secure-badge">🔒 Privacy: All processing is local, zero server upload</div>`
+  },
+
+  cvMaker: {
+    title: '📋 Professional CV Maker',
+    body: `
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Create an International Standard CV with dynamic sections.</p>
+      <div class="form-group"><label>Full Name</label><input class="form-control" placeholder="Your full name" type="text"></div>
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Date of Birth</label><input class="form-control" type="date"></div>
+        <div class="form-group"><label>Blood Group</label>
+          <select class="form-control"><option>A+</option><option>B+</option><option>O+</option><option>AB+</option><option>A-</option><option>B-</option><option>O-</option><option>AB-</option></select>
+        </div>
+      </div>
+      <div class="form-group"><label>Mobile Number</label><input class="form-control" placeholder="+880 1X XX XXX XXXX" type="tel"></div>
+      <div class="form-group"><label>Email</label><input class="form-control" placeholder="your@email.com" type="email"></div>
+      <div class="form-group"><label>Present Address</label><input class="form-control" placeholder="Current address" type="text"></div>
+      <div class="form-group"><label>Career Objective</label><textarea class="form-control" rows="3" placeholder="Write your career summary..."></textarea></div>
+      <div class="form-group"><label>Educational Qualification</label><textarea class="form-control" rows="2" placeholder="SSC, HSC, Graduation..."></textarea></div>
+      <div class="form-group"><label>CV Background Color</label><input type="color" value="#1a73e8" style="width:100%;height:40px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;"></div>
+      <button class="btn-primary" onclick="alert('CV generated — Save as PDF')">💾 Save CV as PDF</button>`
+  },
+
+  ageCalc: {
+    title: '🎂 Age Calculator',
+    body: `
+      <div class="form-group"><label>Date of Birth</label><input class="form-control" type="date" id="dobInput"></div>
+      <button class="btn-primary" onclick="calcAge()">🎂 Calculate Age</button>
+      <div id="ageResult" class="result-box" style="margin-top:14px;display:none;"></div>`
+  },
+
+  usdConvert: {
+    title: '💵 USD to BDT Converter',
+    body: `
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Live exchange rate converter (demo rate used).</p>
+      <div class="form-group">
+        <label>Direction</label>
+        <select class="form-control" id="convDir">
+          <option>USD → BDT</option>
+          <option>BDT → USD</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Amount</label><input class="form-control" type="number" id="convAmt" placeholder="Enter amount" oninput="doConvert()"></div>
+      <div id="convResult" class="copy-result" style="display:none;"></div>`
+  },
+
+  bgRemove: {
+    title: '🖼 Image Background Remover',
+    body: `
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Remove image backgrounds automatically in seconds using AI.</p>
+      <div class="upload-zone" onclick="alert('Upload image here')">
+        <div class="uz-icon">🖼</div>
+        <strong>Select or Drag Image</strong>
+        <p>Supports JPG, PNG, WEBP (Max 10MB)</p>
+      </div>
+      <button class="btn-primary" style="margin-top:14px;" onclick="alert('AI processing would remove background')">🤖 Remove Background</button>
+      <div class="secure-badge">✅ AI-powered • Transparent PNG output</div>`
+  },
+
+  imgConverter: {
+    title: '🔄 Bulk Image Converter',
+    body: `
+      <div class="upload-zone" onclick="alert('Select images')">
+        <div class="uz-icon">🗂</div>
+        <strong>Tap to Select or Drag Images</strong>
+        <p>Multiple images supported</p>
+      </div>
+      <div class="form-group" style="margin-top:14px;"><label>Output Format</label>
+        <select class="form-control"><option>PNG (Lossless)</option><option>JPEG (Compact)</option><option>WEBP (Recommended)</option></select>
+      </div>
+      <div class="form-group"><label>Quality: <span id="qualityVal">80</span>%</label>
+        <input type="range" min="10" max="100" value="80" style="width:100%;" oninput="document.getElementById('qualityVal').textContent=this.value">
+      </div>
+      <button class="btn-primary" onclick="alert('Converting images...')">⚡ Convert and Download</button>`
+  },
+
+  qrCode: {
+    title: '📲 QR Code Generator',
+    body: `
+      <div class="form-group"><label>Type</label>
+        <select class="form-control" id="qrType" onchange="updateQRPlaceholder()">
+          <option>URL</option><option>Text</option><option>WiFi</option><option>Email</option>
+        </select>
+      </div>
+      <div class="form-group"><label id="qrLabel">Website URL</label>
+        <input class="form-control" id="qrInput" placeholder="https://example.com" type="text">
+      </div>
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Foreground</label><input type="color" value="#000000" style="width:100%;height:40px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;"></div>
+        <div class="form-group"><label>Background</label><input type="color" value="#ffffff" style="width:100%;height:40px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;"></div>
+      </div>
+      <button class="btn-primary" onclick="alert('QR Code generated! Save as PNG')">📲 Generate QR Code</button>
+      <div id="qrPreview" style="text-align:center;padding:20px;display:none;">
+        <div style="width:160px;height:160px;border:2px solid #ddd;border-radius:10px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;">QR Preview</div>
+      </div>`
+  },
+
+  imgCompress: {
+    title: '🗜 Image Compressor & KB Limiter',
+    body: `
+      <div class="upload-zone" onclick="alert('Upload image')">
+        <div class="uz-icon">🗜</div>
+        <strong>Click to Upload or Drag Image</strong>
+        <p>Supports JPG, PNG, WEBP</p>
+      </div>
+      <div class="form-group" style="margin-top:14px;"><label>Target Size (Max KB)</label>
+        <input class="form-control" type="number" placeholder="e.g. 100" value="100">
+      </div>
+      <button class="btn-primary" onclick="alert('Compressing image to target KB...')">⚡ Compress Now</button>
+      <p style="color:var(--text-muted);font-size:12px;margin-top:10px;">Resolution maintained while reducing file size.</p>`
+  },
+
+  pdfToImg: {
+    title: '📄 PDF to Image Converter',
+    body: `
+      <div class="upload-zone" onclick="alert('Select PDF file')">
+        <div class="uz-icon">📄</div>
+        <strong>Select PDF File</strong>
+        <p>Drag and drop or click here</p>
+      </div>
+      <div class="form-group" style="margin-top:14px;"><label>Output Format</label>
+        <select class="form-control"><option>JPEG (Standard)</option><option>PNG (Lossless)</option><option>WEBP (Compact)</option></select>
+      </div>
+      <div class="form-group"><label>Resolution: <span id="resVal">150</span> DPI</label>
+        <input type="range" min="72" max="300" value="150" style="width:100%;" oninput="document.getElementById('resVal').textContent=this.value">
+      </div>
+      <button class="btn-primary" onclick="alert('Converting PDF pages to images...')">🔄 Convert PDF Now</button>`
+  },
+
+  imgToPdf: {
+    title: '🗂 Multi-Image to PDF',
+    body: `
+      <div class="upload-zone" onclick="alert('Select images')">
+        <div class="uz-icon">🗂</div>
+        <strong>Click or Drag Images to Upload</strong>
+        <p>Supports JPG, PNG, WEBP or Any image</p>
+      </div>
+      <div class="form-group" style="margin-top:14px;"><label>Page Size</label>
+        <select class="form-control"><option>A4 (Standard)</option><option>Fit to Image</option></select>
+      </div>
+      <button class="btn-primary" onclick="alert('Creating PDF...')">💾 Download PDF</button>`
+  },
+
+  imgToText: {
+    title: '📝 AI Image to Text (OCR)',
+    body: `
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Extract selectable text from any image. Supports Bangla &amp; English.</p>
+      <div class="upload-zone" onclick="alert('Select image')">
+        <div class="uz-icon">📝</div>
+        <strong>Select or Drag Image</strong>
+        <p>Supports PNG, JPG, WEBP</p>
+      </div>
+      <button class="btn-primary" style="margin-top:14px;" onclick="alert('AI OCR processing...')">🤖 Start Extraction</button>
+      <div class="result-box" style="margin-top:14px;">Extracted text will appear here...</div>
+      <button class="btn-outline" style="margin-top:8px;width:100%;" onclick="alert('Text copied!')">📋 Copy Text</button>`
+  },
+
+  cashMemo: {
+    title: '🧾 Cash Memo / Receipt Maker',
+    body: `
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Receipt No</label><input class="form-control" type="text" value="#101"></div>
+        <div class="form-group"><label>Date</label><input class="form-control" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      </div>
+      <div class="form-group"><label>Customer Name</label><input class="form-control" placeholder="Customer name" type="text"></div>
+      <div class="form-group"><label>Address</label><input class="form-control" placeholder="Customer address" type="text"></div>
+      <div class="form-group"><label>Mobile</label><input class="form-control" placeholder="+880..." type="tel"></div>
+      <div class="form-group"><label>Paper Size</label>
+        <select class="form-control"><option>A4</option><option>Legal</option><option>A5</option></select>
+      </div>
+      <div style="background:#f8f9fa;border-radius:10px;padding:14px;margin:10px 0;font-size:13px;border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">
+          <span>SL</span><span>Description</span><span>Qty</span><span>Rate</span><span>Total</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:8px;">
+          <span>1</span>
+          <input style="flex:1;border:1px solid #ddd;padding:4px 8px;border-radius:6px;font-family:Poppins;" placeholder="Item">
+          <input style="width:50px;border:1px solid #ddd;padding:4px 8px;border-radius:6px;font-family:Poppins;text-align:center;" value="1" type="number">
+          <input style="width:70px;border:1px solid #ddd;padding:4px 8px;border-radius:6px;font-family:Poppins;text-align:right;" value="0" type="number" id="memoRate">
+          <span id="memoTotal">0.00</span>
+        </div>
+        <div style="margin-top:10px;font-weight:700;text-align:right;">Grand Total: <span id="memoGrand">0.00</span></div>
+      </div>
+      <button class="btn-primary" onclick="alert('Printing / Saving as PDF...')">🖨 Print / Save PDF</button>`
+  },
+
+  digitalSig: {
+    title: '✍ Digital Signature Pad',
+    body: `
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:12px;">Sign inside the box using your Mouse or Finger</p>
+      <canvas id="sigCanvas" width="460" height="180" style="width:100%;height:180px;border:2px solid var(--border);border-radius:12px;background:#f9f9f9;cursor:crosshair;touch-action:none;"></canvas>
+      <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap;">
+        <label style="font-size:13px;font-weight:600;color:var(--text-muted);">Thickness:</label>
+        <input type="range" min="1" max="8" value="3" id="sigThick" style="flex:1;">
+        <span id="sigThickVal">3</span>px
+      </div>
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn-outline" style="flex:1;" onclick="clearSig()">🗑 Clear</button>
+        <button class="btn-primary" style="flex:1;" onclick="saveSig()">💾 Save PNG</button>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Saves as transparent PNG, perfect for online forms.</p>`
+  },
+
+  pdfMerge: {
+    title: '📑 PDF Merger & Splitter Pro',
+    body: `
+      <div style="display:flex;gap:10px;margin-bottom:14px;">
+        <button class="btn-primary" id="tabMerge" onclick="switchPdfTab('merge')" style="flex:1;">🔗 Merge PDF</button>
+        <button class="btn-outline" id="tabSplit" onclick="switchPdfTab('split')" style="flex:1;">✂ Split PDF</button>
+      </div>
+      <div id="pdfMergePane">
+        <div class="upload-zone" onclick="alert('Select multiple PDF files')">
+          <div class="uz-icon">📑</div>
+          <strong>Select Multiple PDF Files</strong>
+          <p>Files will be merged in order</p>
+        </div>
+        <button class="btn-primary" style="margin-top:12px;" onclick="alert('Merging PDFs...')">🔗 Merge &amp; Download</button>
+      </div>
+      <div id="pdfSplitPane" style="display:none;">
+        <div class="upload-zone" onclick="alert('Select single PDF')">
+          <div class="uz-icon">📄</div>
+          <strong>Select Single PDF File</strong>
+          <p>Max 50MB</p>
+        </div>
+        <div class="form-group" style="margin-top:12px;"><label>Page Ranges (e.g. 1-3, 5)</label><input class="form-control" placeholder="1-3, 5, 7-10"></div>
+        <button class="btn-primary" onclick="alert('Splitting PDF...')">✂ Extract &amp; Download</button>
+      </div>`
+  },
+
+  translator: {
+    title: '🌐 EN/BN Text Translator',
+    body: `
+      <div class="form-group"><label>English</label><textarea class="form-control" id="engText" rows="4" placeholder="Type English here..." oninput="demoTranslate()"></textarea></div>
+      <button class="btn-primary" onclick="demoTranslate()">🔄 Translate Now</button>
+      <div class="form-group" style="margin-top:12px;"><label>Bengali</label><textarea class="form-control" id="bnText" rows="4" placeholder="Translation will appear here..." readonly></textarea></div>
+      <button class="btn-outline" style="width:100%;margin-top:8px;" onclick="alert('Text copied!')">📋 Copy</button>`
+  },
+
+  landArea: {
+    title: '🏡 Land Area Calculator',
+    body: `
+      <div class="form-group"><label>Shape</label>
+        <select class="form-control" id="landShape" onchange="calcLand()">
+          <option>Rectangle (চতুর্ভুজ)</option>
+          <option>Triangle (ত্রিভুজ)</option>
+        </select>
+      </div>
+      <div class="tool-grid-2" id="landRectInputs">
+        <div class="form-group"><label>Length (Feet)</label><input class="form-control" type="number" id="landL" value="30" oninput="calcLand()"></div>
+        <div class="form-group"><label>Width (Feet)</label><input class="form-control" type="number" id="landW" value="20" oninput="calcLand()"></div>
+      </div>
+      <div id="landResult" style="margin-top:16px;"></div>
+      <button class="btn-outline" style="width:100%;margin-top:10px;" onclick="alert('Print A4')">🖨 Print A4</button>`
+  },
+
+  heightWeight: {
+    title: '📏 Height & Weight Converter',
+    body: `
+      <h4 style="margin-bottom:12px;font-size:15px;">Height Converter</h4>
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Feet</label><input class="form-control" type="number" id="htFeet" placeholder="5" oninput="calcHeight()"></div>
+        <div class="form-group"><label>Inches</label><input class="form-control" type="number" id="htInch" placeholder="8" oninput="calcHeight()"></div>
+      </div>
+      <div id="htResult" class="copy-result" style="display:none;"></div>
+      <h4 style="margin:16px 0 12px;font-size:15px;">Weight Converter</h4>
+      <div class="form-group"><label>Kilograms (KG)</label><input class="form-control" type="number" id="wtKg" placeholder="70" oninput="calcWeight()"></div>
+      <div id="wtResult" class="copy-result" style="display:none;"></div>`
+  },
+
+  banglaSig: {
+    title: '✍ Bangla Sign Maker Pro',
+    body: `
+      <div class="form-group"><label>Type Your Name in Bangla</label>
+        <input class="form-control" type="text" id="banglaNameInput" placeholder="আপনার নাম লিখুন" style="font-family:'Noto Sans Bengali',sans-serif;font-size:16px;" oninput="updateSigPreview()">
+      </div>
+      <div class="form-group"><label>Signature Style</label>
+        <select class="form-control" id="sigStyle" onchange="updateSigPreview()">
+          <option value="300">Thin</option>
+          <option value="500" selected>Medium</option>
+          <option value="700">Bold</option>
+        </select>
+      </div>
+      <div id="banglaPreview" style="background:white;border:2px solid var(--border);border-radius:12px;padding:24px;text-align:center;font-size:32px;font-family:'Noto Sans Bengali',sans-serif;min-height:80px;color:#222;margin-bottom:14px;">
+        আপনার নাম
+      </div>
+      <button class="btn-primary" onclick="alert('Save as transparent PNG')">💾 Save as Transparent PNG</button>`
+  },
+
+  studentId: {
+    title: '🪪 Student ID Card Maker',
+    body: `
+      <div class="form-group"><label>Orientation</label>
+        <select class="form-control"><option>Horizontal</option><option>Vertical</option></select>
+      </div>
+      <div class="form-group"><label>Institution Name</label><input class="form-control" type="text" placeholder="School / College Name" id="instName"></div>
+      <div class="form-group"><label>Student Name</label><input class="form-control" type="text" placeholder="Full Name" id="stuName"></div>
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Class</label><input class="form-control" type="text" placeholder="e.g. Class 10"></div>
+        <div class="form-group"><label>Roll No</label><input class="form-control" type="text" placeholder="Roll Number"></div>
+      </div>
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Blood Group</label>
+          <select class="form-control"><option>A+</option><option>B+</option><option>O+</option><option>AB+</option></select>
+        </div>
+        <div class="form-group"><label>Phone</label><input class="form-control" type="tel" placeholder="01XXXXXXXXX"></div>
+      </div>
+      <div class="form-group"><label>Card Theme Color</label><input type="color" value="#1a73e8" style="width:100%;height:40px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;"></div>
+      <button class="btn-primary" onclick="alert('ID Card generated — Save as Image')">💾 Save ID Card</button>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Standard 3.37 × 2.125 in — Ready for studio printing.</p>`
+  },
+
+  visaPhoto: {
+    title: '✈ All Visa Photo Cropper',
+    body: `
+      <div class="form-group"><label>Search Country / Visa Type</label>
+        <select class="form-control" id="visaCountry">
+          <option>United States (US) — 2 x 2 inch</option>
+          <option>United Kingdom (UK) — 35 x 45 mm</option>
+          <option>Schengen (Europe) — 35 x 45 mm</option>
+          <option>Bangladesh Passport — 35 x 45 mm</option>
+          <option>Canada — 50 x 70 mm</option>
+          <option>Australia — 35 x 45 mm</option>
+          <option>Japan — 35 x 45 mm</option>
+          <option>Saudi Arabia — 4 x 6 cm</option>
+          <option>Malaysia — 35 x 50 mm</option>
+        </select>
+      </div>
+      <div class="upload-zone" onclick="alert('Upload photo')">
+        <div class="uz-icon">📷</div>
+        <strong>Click to Upload Photo</strong>
+        <p>JPG, PNG, WEBP supported</p>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:1;" onclick="alert('Cropping photo...')">✂ Crop Photo</button>
+        <button class="btn-outline" onclick="alert('Save JPG')">💾 Save JPG</button>
+        <button class="btn-outline" onclick="alert('Save A4 PDF')">📄 A4 PDF</button>
+      </div>`
+  },
+
+  nidJoiner: {
+    title: '🪪 NID Front-Back Joiner',
+    body: `
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Upload both sides of the NID correctly to join them.</p>
+      <div class="tool-grid-2">
+        <div>
+          <div class="form-group"><label>Front Side</label></div>
+          <div class="upload-zone" onclick="alert('Upload front side')"><div class="uz-icon">🪪</div><strong>Front Side</strong></div>
+        </div>
+        <div>
+          <div class="form-group"><label>Back Side</label></div>
+          <div class="upload-zone" onclick="alert('Upload back side')"><div class="uz-icon">🔄</div><strong>Back Side</strong></div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:14px;"><label>Layout</label>
+        <select class="form-control"><option>Horizontal</option><option>Vertical</option></select>
+      </div>
+      <div class="form-group"><label>Black Border (px)</label><input class="form-control" type="number" value="0" min="0" max="20"></div>
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:1;" onclick="alert('Save as A4 PDF')">💾 Save A4 PDF</button>
+        <button class="btn-outline" onclick="alert('Save JPG')">📸 Save JPG</button>
+        <button class="btn-outline" onclick="alert('Clear')">🗑 Clear</button>
+      </div>`
+  },
+
+  photocopyCalc: {
+    title: '🖨 Photocopy & Print Cost Calculator',
+    body: `
+      <div class="form-group"><label>Paper Rim Price (BDT)</label><input class="form-control" type="number" id="rimPrice" value="450" oninput="calcPhotocopy()"></div>
+      <div class="form-group"><label>Ink/Toner Price (BDT)</label><input class="form-control" type="number" id="inkPrice" value="800" oninput="calcPhotocopy()"></div>
+      <div class="form-group"><label>Page Yield (Approx)</label><input class="form-control" type="number" id="pageYield" value="2000" oninput="calcPhotocopy()"></div>
+      <div class="form-group"><label>Electricity/Bill (Per Page BDT)</label><input class="form-control" type="number" id="electricity" value="0.05" step="0.01" oninput="calcPhotocopy()"></div>
+      <div class="form-group"><label>Selling Price (Per Page BDT)</label><input class="form-control" type="number" id="sellPrice" value="3" step="0.5" oninput="calcPhotocopy()"></div>
+      <div id="copyResult" style="margin-top:14px;"></div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:10px;">One Rim = 500 sheets. Based on single-side print.</p>`
+  },
+
+  calendar: {
+    title: '📆 Bengali Calendar (EN-BN-AR)',
+    body: `
+      <div style="text-align:center;padding:20px 0;">
+        <div style="font-size:28px;font-weight:800;color:var(--primary);" id="calToday">Loading...</div>
+        <div style="font-size:16px;color:var(--text-muted);margin-top:6px;" id="calBengali">বাংলা তারিখ লোড হচ্ছে...</div>
+        <div style="font-size:14px;color:#888;margin-top:4px;" id="calArabic">হিজরি তারিখ লোড হচ্ছে...</div>
+      </div>
+      <div style="background:#f8f9fa;border-radius:12px;padding:16px;border:1.5px solid var(--border);">
+        <div style="font-size:13px;color:var(--text-muted);text-align:center;">Calendar grid would display here with full month view, highlighting today's date in Bengali, English, and Arabic (Hijri).</div>
+      </div>`
+  },
+
+  dateConvert: {
+    title: '🗓 Date Converter (EN-BN-AR)',
+    body: `
+      <div class="form-group"><label>Select English Date</label><input class="form-control" type="date" id="dateConvInput" oninput="convertDates()"></div>
+      <div id="dateConvResult" style="margin-top:14px;display:none;">
+        <div class="form-group"><label>English Date</label><div class="result-box" id="enDate"></div></div>
+        <div class="form-group"><label>Bengali Date (বাংলা)</label><div class="result-box" id="bnDate"></div></div>
+        <div class="form-group"><label>Arabic / Hijri Date (আরবি)</label><div class="result-box" id="arDate"></div></div>
+        <button class="btn-outline" style="width:100%;" onclick="alert('Copied!')">📋 Copy All</button>
+      </div>`
+  },
+
+  familyCard: {
+    title: '👨‍👩‍👧 ফ্যামিলি কার্ড আবেদন ফরম ২০২৬',
+    body: `
+      <div style="background:#e3f2fd;border:1.5px solid #90caf9;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#1565c0;">
+        <strong>🔔 বিশেষ দ্রষ্টব্য:</strong> ফ্যামিলি কার্ডের জন্য অনলাইনে আবেদন করার কোনো সিস্টেম নেই। এই ফর্মটি আপনার এলাকার চেয়ারম্যান / কাউন্সিলর / মেয়রের কাছে জমা দিন।
+      </div>
+      <div class="form-group"><label>প্রাপক নির্বাচন করুন</label>
+        <select class="form-control"><option>এলাকার গণ্যমান্য ব্যক্তি</option><option>ওয়ার্ড মেম্বার</option><option>চেয়ারম্যান</option><option>কাউন্সিলর</option><option>মেয়র</option></select>
+      </div>
+      <div class="form-group"><label>ইউনিয়ন/পৌরসভার নাম</label><input class="form-control" type="text" placeholder="ইউনিয়ন বা পৌরসভার নাম লিখুন"></div>
+      <div class="form-group"><label>আবেদনকারীর পূর্ণ নাম</label><input class="form-control" type="text" placeholder="পূর্ণ নাম লিখুন"></div>
+      <div class="form-group"><label>পিতা/স্বামীর নাম</label><input class="form-control" type="text" placeholder="পিতা বা স্বামীর নাম"></div>
+      <div class="form-group"><label>NID নম্বর</label><input class="form-control" type="text" placeholder="জাতীয় পরিচয়পত্র নম্বর"></div>
+      <div class="form-group"><label>মোবাইল নম্বর</label><input class="form-control" type="tel" placeholder="01XXXXXXXXX"></div>
+      <div class="form-group"><label>গ্রাম / মহল্লা</label><input class="form-control" type="text" placeholder="গ্রাম বা মহল্লার নাম"></div>
+      <div class="tool-grid-2">
+        <div class="form-group"><label>ছেলে সন্তান</label><input class="form-control" type="number" value="0" min="0"></div>
+        <div class="form-group"><label>মেয়ে সন্তান</label><input class="form-control" type="number" value="0" min="0"></div>
+      </div>
+      <button class="btn-primary" onclick="alert('PDF ডাউনলোড হচ্ছে...')">💾 PDF ডাউনলোড করুন</button>
+      <div class="secure-badge">✅ এই সুবিধা পেতে কাউকে টাকা দেওয়ার প্রয়োজন নেই — সরকার থেকে বিনামূল্যে বিতরণ করা হবে।</div>`
+  },
+
+  weddingCard: {
+    title: '💍 Wedding Memento Card Maker',
+    body: `
+      <div class="tool-grid-2">
+        <div class="form-group"><label>Language</label><select class="form-control"><option>English</option><option>বাংলা</option></select></div>
+        <div class="form-group"><label>Religion</label><select class="form-control"><option>Islam</option><option>Hindu</option><option>Christian</option><option>Buddhist</option></select></div>
+      </div>
+      <div class="form-group"><label>Template</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button style="padding:8px 16px;border-radius:8px;border:2px solid var(--primary);background:#e8f0fe;color:var(--primary);font-weight:600;cursor:pointer;font-family:Poppins;">Modern</button>
+          <button style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:Poppins;">Royal</button>
+          <button style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:Poppins;">Premium</button>
+          <button style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:Poppins;">Classic</button>
+        </div>
+      </div>
+      <div class="tool-grid-2">
+        <div class="upload-zone" onclick="alert('Upload Photo 1')" style="padding:20px 10px;"><div class="uz-icon">📷</div><strong>Photo 1</strong></div>
+        <div class="upload-zone" onclick="alert('Upload Photo 2')" style="padding:20px 10px;"><div class="uz-icon">📷</div><strong>Photo 2</strong></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:1;" onclick="alert('Save as JPG')">💾 SAVE JPG</button>
+        <button class="btn-outline" onclick="alert('Save as PDF')">📄 SAVE PDF</button>
+      </div>`
+  },
+
+  eidCard: {
+    title: '🌙 ঈদ কার্ড ডিজাইন - Eid Card Design',
+    body: `
+      <div class="form-group"><label>ডিজাইন টেমপ্লেট</label>
+        <select class="form-control"><option>রাউন্ড ফ্রেম (Standard)</option><option>স্কয়ার ফ্রেম (Classic)</option><option>হেক্সাগন ফ্রেম (Modern)</option></select>
+      </div>
+      <div class="form-group"><label>পোস্টারের কালার থিম</label>
+        <select class="form-control"><option>Royal Blue</option><option>Emerald Green</option><option>Deep Purple</option><option>Crimson Red</option></select>
+      </div>
+      <div class="form-group"><label>আপনার ছবি আপলোড করুন</label>
+        <div class="upload-zone" onclick="alert('Select photo')"><div class="uz-icon">📷</div><strong>ক্লিক করে ছবি নির্বাচন করুন</strong></div>
+      </div>
+      <div class="form-group"><label>আপনার নাম</label><input class="form-control" type="text" placeholder="আপনার নাম লিখুন"></div>
+      <div class="form-group"><label>আপনার পদবি / পরিচয়</label><input class="form-control" type="text" placeholder="পদবি বা পরিচয়"></div>
+      <div class="form-group"><label>আপনার ঠিকানা</label><input class="form-control" type="text" placeholder="ঠিকানা লিখুন"></div>
+      <button class="btn-primary" onclick="alert('HD Card saved!')">💾 HD ডাউনলোড করুন</button>`
+  },
+
+  // Generic modals for remaining tools
+  passportCrop: { title: '🛂 Passport Crop to PDF', body: genericUploadTool('Upload your passport photo, crop it, and save as print-ready PDF.', '🛂') },
+  aiPassport: { title: '🤖 AI Passport Photo Maker', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Click a card to copy the prompt and open Google AI Studio.</p>${aiPromptCards()}` },
+  photoPrint: { title: '🖨 Studio Photo Print Layout', body: genericUploadTool('Upload photo and select layout for A4 print.', '🖨') },
+  jointPhoto: { title: '👫 Joint Photo Maker', body: jointPhotoTool() },
+  sigRemove: { title: '🧹 Signature Background Remover', body: genericUploadTool('Upload signature image to automatically remove background.', '✍') },
+  imageCrop: { title: '✂️ Advance Image Crop', body: genericUploadTool('Upload image and drag corners to crop precisely.', '✂️') },
+  a4Typing: { title: '⌨ A4 Page Typing', body: `<div style="border:2px solid var(--border);border-radius:12px;min-height:400px;padding:24px 28px;background:#fff;font-family:'Poppins',serif;font-size:14px;line-height:1.8;" contenteditable="true" placeholder="Start typing your A4 document here...">Start typing your A4 document here...</div><div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;"><button class="btn-primary" style="flex:1;" onclick="window.print()">🖨 Print</button><button class="btn-outline" onclick="alert('Clear page')">🗑 Clear</button></div>` },
+  imgEnhancer: { title: '✨ Image Enhancer', body: genericUploadTool('Upload photo for AI enhancement and quality improvement.', '✨') },
+  stampWriter: { title: '🖊 Stamp or Legal Document Writer', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Type your legal document content below. Formatted for stamp/legal paper.</p><textarea class="form-control" rows="12" placeholder="Type legal document content here...&#10;&#10;বরাবর,&#10;জনাব...&#10;&#10;বিষয়: ..."></textarea><div style="display:flex;gap:10px;margin-top:12px;"><button class="btn-primary" style="flex:1;" onclick="window.print()">🖨 Print / Save PDF</button><button class="btn-outline" onclick="alert('Cleared!')">🗑 Clear</button></div>` },
+  excelSheet: { title: '📊 Excel Table Sheet Creator', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Build A4 &amp; Legal table sheets.</p><div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;"><tr><th style="border:1px solid #ddd;padding:8px;background:#f8f9fa;">SL</th><th style="border:1px solid #ddd;padding:8px;background:#f8f9fa;min-width:180px;">Item Description</th><th style="border:1px solid #ddd;padding:8px;background:#f8f9fa;">Qty</th><th style="border:1px solid #ddd;padding:8px;background:#f8f9fa;">Price</th><th style="border:1px solid #ddd;padding:8px;background:#f8f9fa;">Total</th></tr>${[1,2,3,4,5].map(i=>`<tr><td style="border:1px solid #ddd;padding:6px;text-align:center;">${i}</td><td style="border:1px solid #ddd;"><input style="width:100%;border:none;padding:6px;font-family:Poppins;font-size:13px;" placeholder="Item ${i}"></td><td style="border:1px solid #ddd;"><input style="width:60px;border:none;padding:6px;text-align:center;font-family:Poppins;" type="number" value="1"></td><td style="border:1px solid #ddd;"><input style="width:80px;border:none;padding:6px;text-align:right;font-family:Poppins;" type="number" value="0"></td><td style="border:1px solid #ddd;padding:6px;text-align:right;">0.00</td></tr>`).join('')}</table></div><div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;"><button class="btn-primary" style="flex:1;" onclick="window.print()">🖨 Print or Save PDF</button><button class="btn-outline" onclick="alert('Sheet reset')">↺ Reset</button></div>` },
+  aiPrompt: { title: '🤖 AI Image Editing Prompt Hub', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Get professional AI prompts for high-end image editing. Copy and paste into Google Gemini or AI Studio.</p>${promptLibrary()}` },
+  barcode: { title: '📊 Barcode Generator', body: `<div class="form-group"><label>Data / Number</label><input class="form-control" type="text" placeholder="Enter text or numbers"></div><div class="form-group"><label>Format</label><select class="form-control"><option>Code 128 (Standard)</option><option>EAN-13 (Retail)</option><option>EAN-8</option><option>UPC-A</option><option>Code 39</option><option>ITF-14</option></select></div><div class="tool-grid-2"><div class="form-group"><label>Bar Width</label><input class="form-control" type="number" value="2"></div><div class="form-group"><label>Height (px)</label><input class="form-control" type="number" value="80"></div></div><button class="btn-primary" onclick="alert('Barcode generated!')">📊 Generate Barcode</button>` },
+  teletalk: { title: '📱 Teletalk Photo & Sig Resizer', body: `<div style="display:flex;gap:10px;margin-bottom:14px;"><button class="btn-primary" style="flex:1;">📷 Photo Mode (300×300px)</button><button class="btn-outline" style="flex:1;">✍ Signature (300×80px)</button></div>${genericUploadTool('Upload photo to resize to Teletalk specifications.', '📱')}` },
+  photoPrintLayout: { title: '🖨 Photo Print Layout Pro', body: genericUploadTool('Upload photo, select size and paper type, print on A4.', '🖨') },
+  coverLetter: { title: '📨 Official Cover Letter Pro', body: `<div class="tool-grid-2"><div class="form-group"><label>Type</label><select class="form-control"><option>Job Application</option><option>Leave of Absence</option><option>General</option></select></div><div class="form-group"><label>Language</label><select class="form-control"><option>English</option><option>বাংলা</option></select></div></div><div class="form-group"><label>Applicant Name</label><input class="form-control" type="text" placeholder="Full name"></div><div class="form-group"><label>Organization</label><input class="form-control" type="text" placeholder="Company/Organization name"></div><div class="form-group"><label>Position Applied</label><input class="form-control" type="text" placeholder="Job title"></div><div class="form-group"><label>Letter Body</label><textarea class="form-control" rows="5" placeholder="Main content of your letter..."></textarea></div><button class="btn-primary" onclick="window.print()">🖨 Print / Save PDF</button>` },
+  a4Scan: { title: '📠 A4 Document Scanner', body: genericUploadTool('Upload document, apply Magic Scan filter, save as A4 PDF.', '📠') },
+  photoName: { title: '🏷 Photo Name & Date Adder', body: `${genericUploadTool('Upload photo then add name and date overlay.', '📷')}<div class="form-group" style="margin-top:14px;"><label>Name Text</label><input class="form-control" type="text" placeholder="Type full name"></div><div class="tool-grid-2"><div class="form-group"><label>Date</label><input class="form-control" type="date"></div><div class="form-group"><label>Font Color</label><input type="color" value="#ffffff" style="width:100%;height:40px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;"></div></div><button class="btn-primary" onclick="alert('Saved!')">💾 Save Image</button>` },
+  biodata: { title: '📄 Biodata Maker', body: `<div class="tool-grid-2"><div class="form-group"><label>Type</label><select class="form-control"><option>Job CV</option><option>Marriage Biodata</option></select></div><div class="form-group"><label>Language</label><select class="form-control"><option>English</option><option>বাংলা</option></select></div></div><div class="form-group"><label>Full Name</label><input class="form-control" type="text" placeholder="Full name"></div><div class="form-group"><label>Father's Name</label><input class="form-control" type="text" placeholder="Father's name"></div><div class="form-group"><label>Date of Birth</label><input class="form-control" type="date"></div><div class="form-group"><label>Religion</label><input class="form-control" type="text" placeholder="Religion"></div><div class="form-group"><label>Address</label><textarea class="form-control" rows="2" placeholder="Present address"></textarea></div><button class="btn-primary" onclick="alert('Download PDF')">💾 Download PDF</button>` },
+  phonetic: { title: '🔤 English to Bengali Phonetic', body: `<div class="form-group"><label>Type in English</label><input class="form-control" type="text" placeholder="e.g. Amar Sonar Bangla" oninput="demoPhonetic(this)"></div><div class="form-group" style="margin-top:10px;"><label>Bengali Pronunciation</label><div class="result-box" id="phoneticResult">Result will appear here...</div></div><button class="btn-outline" style="width:100%;margin-top:8px;" onclick="alert('Copied!')">📋 Copy Text</button>` },
+  qrScanner: { title: '📷 QR & Barcode Scanner', body: `<div class="upload-zone" onclick="alert('Upload QR/Barcode image')"><div class="uz-icon">📷</div><strong>Upload an image to scan QR or Barcode</strong><p>Supports PNG, JPG, WEBP</p></div><div class="result-box" style="margin-top:14px;">Scanned result will appear here...</div><button class="btn-outline" style="width:100%;margin-top:8px;" onclick="alert('Copied!')">📋 Copy Result</button>` },
+  banglaToBanglish: { title: '🔤 Bangla to Banglish', body: `<div class="form-group"><label>Type Bangla Here</label><textarea class="form-control" id="banglaInput" rows="4" placeholder="বাংলা লিখুন..." oninput="demoBanglish(this)"></textarea></div><div class="form-group" style="margin-top:10px;"><label>Banglish Result</label><textarea class="form-control" id="banglishResult" rows="4" placeholder="Banglish result..." readonly></textarea></div><button class="btn-outline" style="width:100%;margin-top:8px;" onclick="alert('Copied!')">📋 Copy Banglish</button><p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Real-time conversion. Perfect for social media messages.</p>` },
+  visitingCard: { title: '💼 Smart Business Card Pro', body: `<div class="form-group"><label>Full Name</label><input class="form-control" type="text" placeholder="Your Name"></div><div class="form-group"><label>Job Title</label><input class="form-control" type="text" placeholder="e.g. Software Engineer"></div><div class="form-group"><label>Company</label><input class="form-control" type="text" placeholder="Company name"></div><div class="form-group"><label>Phone</label><input class="form-control" type="tel" placeholder="+880 1X..."></div><div class="form-group"><label>Email</label><input class="form-control" type="email" placeholder="your@email.com"></div><div class="form-group"><label>Template</label><div style="display:flex;gap:8px;flex-wrap:wrap;"><button style="padding:8px 14px;border-radius:8px;border:2px solid var(--primary);background:#e8f0fe;color:var(--primary);font-weight:600;cursor:pointer;font-family:Poppins;">Modern</button><button style="padding:8px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:Poppins;">Classic</button><button style="padding:8px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:Poppins;">Minimal</button></div></div><div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;"><button class="btn-primary" style="flex:1;" onclick="alert('Save as PNG')">💾 Save PNG</button><button class="btn-outline" onclick="alert('Save PDF')">📄 PDF</button></div>` },
+  multiPdf: { title: '🗂 Multi-Image to PDF', body: `<div class="upload-zone" onclick="alert('Select images')"><div class="uz-icon">🗂</div><strong>Click or Drag Images to Upload</strong><p>JPG, PNG, WEBP or Any image</p></div><div class="form-group" style="margin-top:14px;"><label>Page Size</label><select class="form-control"><option>A4 (Standard)</option><option>Fit to Image</option></select></div><button class="btn-primary" style="margin-top:10px;" onclick="alert('Download PDF')">💾 Download PDF</button>` },
+  notice: { title: '📢 Ready Notice Maker', body: `<div class="form-group"><label>প্রতিষ্ঠানের নাম</label><input class="form-control" type="text" placeholder="Institution name"></div><div class="form-group"><label>ঠিকানা</label><input class="form-control" type="text" placeholder="Address"></div><div class="form-group"><label>স্মারক নং</label><input class="form-control" type="text" placeholder="Reference number"></div><div class="form-group"><label>নোটিশের বিষয়</label><input class="form-control" type="text" placeholder="Notice subject"></div><div class="form-group"><label>বিস্তারিত তথ্য</label><textarea class="form-control" rows="4" placeholder="Notice details..."></textarea></div><button class="btn-primary" onclick="window.print()">🖨 প্রিন্ট করুন (A4)</button>` },
+  leaflet: { title: '🗞 A4 Leaflet Maker', body: `<div class="form-group"><label>শিরোনাম / Headline</label><input class="form-control" type="text" placeholder="Main headline"></div><div class="form-group"><label>বিস্তারিত তথ্য / Details</label><textarea class="form-control" rows="4" placeholder="Content details..."></textarea></div><div class="form-group"><label>যোগাযোগ / Contact</label><input class="form-control" type="text" placeholder="Contact info"></div><div class="form-group"><label>Alignment</label><select class="form-control"><option>Center</option><option>Left</option><option>Right</option></select></div><button class="btn-primary" onclick="window.print()">🖨 Print A4</button>` },
+  omr: { title: '📝 OMR Sheet Generator', body: `<div class="form-group"><label>Institution Name</label><input class="form-control" type="text" placeholder="School/College name"></div><div class="form-group"><label>Exam Title</label><input class="form-control" type="text" placeholder="Exam name"></div><div class="form-group"><label>Total Questions</label><select class="form-control"><option>25 Questions</option><option>30 Questions</option><option>50 Questions</option><option>100 Questions</option></select></div><div class="form-group"><label>Options</label><select class="form-control"><option>4 (A-D)</option><option>5 (A-E)</option></select></div><button class="btn-primary" onclick="alert('OMR Sheet generated!')">📝 Generate &amp; Print OMR</button>` },
+  affidavit: { title: '⚖ Affidavit Writer', body: `<div class="form-group"><label>Language</label><select class="form-control"><option>বাংলা</option><option>English</option></select></div><div class="form-group"><label>হলফকারীর নাম</label><input class="form-control" type="text" placeholder="Applicant name"></div><div class="form-group"><label>পিতা/স্বামীর নাম</label><input class="form-control" type="text" placeholder="Father/Husband name"></div><div class="form-group"><label>ভুল তথ্য</label><input class="form-control" type="text" placeholder="Incorrect information"></div><div class="form-group"><label>সঠিক তথ্য</label><input class="form-control" type="text" placeholder="Correct information"></div><button class="btn-primary" onclick="window.print()">🖨 Print PDF</button>` },
+  examResult: { title: '📚 Exam Result Check BD', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">All Bangladesh exam results in one place.</p><div style="display:flex;flex-direction:column;gap:10px;">${['বাংলাদেশ শিক্ষা বোর্ড — SSC/HSC','প্রাথমিক শিক্ষা অধিদপ্তর','কারিগরী শিক্ষা বোর্ড — HSC Vocational','কওমী মাদরাসা বোর্ড','মেডিকেল রেজাল্ট — MBBS','বিদ্যালয়ের অভ্যন্তরীণ রেজাল্ট'].map(b=>`<a href="#" onclick="return false;" style="padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:500;transition:all .18s;display:block;" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">📚 ${b} →</a>`).join('')}</div>` },
+  jobFinder: { title: '💼 Job Circular Finder BD', body: `<div class="form-group"><label>খোঁজুন / Search</label><div style="display:flex;gap:8px;"><input class="form-control" type="text" placeholder="e.g. Bank Job, Army, Teacher..."><button class="btn-primary" style="white-space:nowrap;" onclick="alert('Searching...')">🔍 খুঁজুন</button></div></div><p style="font-size:13px;color:var(--text-muted);margin:12px 0 8px;">Popular Categories:</p><div style="display:flex;flex-wrap:wrap;gap:8px;">${['সরকারি চাকরি','ব্যাংক চাকরি','শিক্ষকতা','আর্মি/পুলিশ','NGO চাকরি','IT চাকরি','ফ্রিল্যান্সিং'].map(c=>`<button onclick="alert('Finding: ${c}')" style="padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:12px;font-family:Poppins;transition:all .2s;" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">${c}</button>`).join('')}</div>` },
+  onlineServices: { title: '🏛 Online Services Apply BD', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">সকল সরকারি ও বেসরকারি অনলাইন সেবা</p><div style="display:flex;flex-direction:column;gap:8px;">${['e-Passport আবেদন','NID কার্ড আবেদন / ডাউনলোড','জন্ম নিবন্ধন আবেদন','ড্রাইভিং লাইসেন্স','TIN সার্টিফিকেট','পুলিশ ক্লিয়ারেন্স','ভূমি উন্নয়ন কর','TCB স্মার্ট কার্ড'].map(s=>`<a href="#" onclick="return false;" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;text-decoration:none;color:var(--text);font-size:13px;display:flex;justify-content:space-between;align-items:center;" onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='transparent'">🏛 ${s}<span style="color:var(--primary);">→</span></a>`).join('')}</div>` },
+  iPhoneConv: { title: '📱 iPhone Image Converter', body: `<div class="upload-zone" onclick="alert('Select HEIC images')"><div class="uz-icon">📱</div><strong>Tap to Select or Drag HEIC Images</strong><p>iPhone HEIC format supported</p></div><div class="form-group" style="margin-top:14px;"><label>Output Format</label><select class="form-control"><option>JPEG (Compact)</option><option>PNG (Lossless)</option><option>WEBP (Recommended)</option></select></div><div class="form-group"><label>Quality: <span id="iqVal">80</span>%</label><input type="range" min="10" max="100" value="80" style="width:100%;" oninput="document.getElementById('iqVal').textContent=this.value"></div><button class="btn-primary" onclick="alert('Converting HEIC...')">⚡ Convert &amp; Download</button>` },
+  questionMaker: { title: '❓ Exam Question Maker', body: `<div class="form-group"><label>Institution Name</label><input class="form-control" type="text" placeholder="School/College name"></div><div class="form-group"><label>Exam Title</label><input class="form-control" type="text" placeholder="Subject / Exam name"></div><button class="btn-outline" style="width:100%;margin-bottom:8px;" onclick="alert('Add big question')">+ বড় প্রশ্ন যোগ করুন</button><button class="btn-outline" style="width:100%;" onclick="alert('Add MCQ')">+ MCQ প্রশ্ন যোগ করুন</button><button class="btn-primary" style="margin-top:14px;" onclick="window.print()">🖨 প্রিন্ট করুন</button>` },
+  agreement: { title: '🤝 Agreement Letter Writing', body: `<div class="form-group"><label>চুক্তিপত্র টাইপ</label><select class="form-control"><option>বাড়ি ভাড়া চুক্তি</option><option>ব্যবসায়িক চুক্তি</option><option>জমি ক্রয়-বিক্রয়</option></select></div><div class="form-group"><label>প্রথম পক্ষ</label><input class="form-control" type="text" placeholder="First party name"></div><div class="form-group"><label>দ্বিতীয় পক্ষ</label><input class="form-control" type="text" placeholder="Second party name"></div><div class="form-group"><label>বিষয়ের বিবরণ</label><textarea class="form-control" rows="3" placeholder="Subject description"></textarea></div><div class="form-group"><label>টাকার পরিমাণ / শর্ত</label><input class="form-control" type="text" placeholder="Amount or conditions"></div><button class="btn-primary" onclick="window.print()">🖨 Print PDF</button>` },
+  policeGD: { title: '🚓 Police GD Writing', body: `<div class="form-group"><label>জিডির বিষয়</label><select class="form-control"><option>হারানো জিনিসের জিডি</option><option>মোবাইল হারানোর জিডি</option><option>পাসপোর্ট হারানোর জিডি</option><option>NID হারানোর জিডি</option></select></div><div class="form-group"><label>থানার নাম</label><input class="form-control" type="text" placeholder="থানার নাম লিখুন"></div><div class="form-group"><label>আবেদনকারীর নাম</label><input class="form-control" type="text" placeholder="আপনার পূর্ণ নাম"></div><div class="form-group"><label>হারানো জিনিসের বিবরণ</label><textarea class="form-control" rows="3" placeholder="বিস্তারিত বিবরণ..."></textarea></div><button class="btn-primary" onclick="window.print()">🖨 প্রিন্ট করুন (A4)</button>` },
+  classRoutine: { title: '📅 Class Routine Maker', body: `<div class="form-group"><label>Institution Name</label><input class="form-control" type="text" placeholder="School/College name"></div><div class="form-group"><label>Class/Section</label><input class="form-control" type="text" placeholder="e.g. Class 10 - A"></div><p style="font-size:13px;color:var(--text-muted);margin:10px 0;">Periods &amp; Subjects:</p><div id="periodList"><div style="display:flex;gap:8px;margin-bottom:8px;"><input class="form-control" type="time" value="08:00"><input class="form-control" placeholder="Subject name"></div></div><button class="btn-outline" style="width:100%;margin-bottom:14px;" onclick="addPeriod()">+ পিরিয়ড যোগ করুন</button><button class="btn-primary" onclick="window.print()">🖨 Print</button>` },
+  property: { title: '🏠 Property Distribution Calculator', body: `<div class="form-group"><label>মোট জমি (শতাংশ)</label><input class="form-control" type="number" placeholder="e.g. 100" oninput="calcProperty()"></div><div class="form-group"><label>মোট টাকা (নগদ)</label><input class="form-control" type="number" placeholder="e.g. 500000"></div><p style="font-size:13px;font-weight:600;color:var(--text-muted);margin:12px 0 8px;">জীবিত উত্তরাধিকারী:</p><div style="display:flex;flex-wrap:wrap;gap:8px;">${[['স্ত্রী','wife'],['পুত্র','son'],['কন্যা','daughter'],['পিতা','father'],['মাতা','mother']].map(([l,k])=>`<label style="display:flex;align-items:center;gap:6px;font-size:13px;"><input type="checkbox"> ${l}</label>`).join('')}</div><button class="btn-primary" style="margin-top:16px;" onclick="alert('Property distribution calculated!')">🖨 Print Report</button>` },
+  photoshopShortcuts: { title: '🎨 Photoshop Master Shortcuts', body: `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">${['All','Tools','File','Layers','Adjustments'].map(c=>`<button onclick="alert('Filter: ${c}')" style="padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:12px;font-family:Poppins;" onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='#fff'">${c}</button>`).join('')}</div><div style="display:flex;flex-direction:column;gap:6px;">${[['Ctrl+Z','Undo'],['Ctrl+C','Copy'],['Ctrl+V','Paste'],['Ctrl+S','Save'],['Ctrl+Shift+S','Save As'],['Ctrl+Z','Undo'],['Ctrl+D','Deselect'],['V','Move Tool'],['B','Brush Tool'],['E','Eraser Tool'],['T','Text Tool'],['Ctrl+J','Duplicate Layer'],['Ctrl+G','Group Layers'],['Ctrl+E','Merge Layers'],['Ctrl+Shift+E','Merge Visible']].map(([k,d])=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;"><span>${d}</span><kbd style="background:#f8f9fa;border:1px solid #ddd;border-radius:5px;padding:3px 10px;font-size:12px;font-family:monospace;font-weight:700;">${k}</kbd></div>`).join('')}</div>` },
+  salarySheet: { title: '💰 Salary Sheet Maker', body: `<div class="form-group"><label>Institution Name</label><input class="form-control" type="text" placeholder="Company/Organization"></div><div class="form-group"><label>Month</label><input class="form-control" type="month" value="${new Date().toISOString().slice(0,7)}"></div><div style="overflow-x:auto;margin:10px 0;"><table style="width:100%;border-collapse:collapse;font-size:12px;"><tr>${['SL','Name','Designation','Basic','Allowance','Deduction','Net Salary'].map(h=>`<th style="border:1px solid #ddd;padding:7px;background:#f8f9fa;white-space:nowrap;">${h}</th>`).join('')}</tr>${[1,2,3].map(i=>`<tr>${[''+i,'','','','','',''].map((v,j)=>`<td style="border:1px solid #ddd;"><input style="width:100%;border:none;padding:5px;font-size:12px;min-width:${j===1?'120px':'70px'};font-family:Poppins;" placeholder="${v||''}" type="${j>1?'number':'text'}"></td>`).join('')}</tr>`).join('')}</table></div><button class="btn-primary" onclick="window.print()">🖨 Print</button>` },
+  flightCheck: { title: '✈ All Airline Flight Ticket Check', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Check flight tickets from all major airlines.</p><div style="display:flex;flex-direction:column;gap:8px;">${['Biman Bangladesh Airlines','Air Arabia','Emirates Airlines','Qatar Airways','Saudi Arabian Airlines','Malaysia Airlines','IndiGo Airlines','FlyDubai','Fly Jinnah','Thai Airways'].map(a=>`<a href="#" onclick="return false;" style="padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;text-decoration:none;color:var(--text);font-size:13px;display:flex;justify-content:space-between;" onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='transparent'">✈ ${a}<span style="color:var(--primary)">Check →</span></a>`).join('')}</div>` },
+  visaCheck: { title: '🌍 Online Visa Check', body: `<p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">Check your visa status online.</p><div style="display:flex;flex-direction:column;gap:8px;">${['Saudi Arabia Visa Check','Malaysia Visa Check','UAE (Dubai) Visa Check','Qatar Visa Check','Kuwait Visa Check','Bahrain Visa Check','Oman Visa Check','Singapore Visa Check'].map(v=>`<a href="#" onclick="return false;" style="padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;text-decoration:none;color:var(--text);font-size:13px;display:flex;justify-content:space-between;" onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='transparent'">🌍 ${v}<span style="color:var(--primary)">Check →</span></a>`).join('')}</div>` },
+  travelTicket: { title: '🎫 Travel Ticket Booking Hub', body: `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">${['✈ Airlines','🚌 Bus','⛵ Launch','🚂 Train','🏨 Hotel'].map(t=>`<button style="padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:13px;font-family:Poppins;" onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='#fff'">${t}</button>`).join('')}</div><p style="color:var(--text-muted);font-size:13px;">Popular booking portals will be listed here for quick access.</p>` },
+  cloudDB: { title: '☁ Studio Cloud File Database', body: `<div style="text-align:center;padding:20px 0;"><div style="font-size:48px;margin-bottom:12px;">☁</div><p style="color:var(--text-muted);font-size:14px;margin-bottom:16px;">Connect with Google to manage your Photos and Files Securely.</p><button class="btn-primary" onclick="alert('Sign in with Google — full feature in browser')">🔐 Sign in with Google</button></div><div style="background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:12px;margin-top:14px;font-size:12.5px;color:#2e7d32;"><strong>100% Secure:</strong> Your files will be stored directly in your personal Google Drive. Never saved on our server.</div>` },
+  dateWords: { title: '📅 Date to Words Converter', body: `<div class="form-group"><label>Language</label><select class="form-control" id="dwLang"><option>English</option><option>বাংলা</option></select></div><div class="form-group"><label>Enter Date</label><input class="form-control" type="date" id="dwDate" oninput="convertDateWords()"></div><div id="dwResult" class="copy-result" style="display:none;"></div><button class="btn-outline" style="width:100%;margin-top:8px;" onclick="alert('Copied!')">📋 Copy Text</button>` },
+};
+
+function genericUploadTool(desc, icon) {
+  return `<p style="color:var(--text-muted);font-size:13px;margin-bottom:14px;">${desc}</p>
+  <div class="upload-zone" onclick="alert('Upload file here')">
+    <div class="uz-icon">${icon}</div>
+    <strong>Tap to Upload or Drag &amp; Drop</strong>
+    <p>PNG, JPG, WEBP, PDF supported</p>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+    <button class="btn-primary" style="flex:1;" onclick="alert('Processing...')">⚡ Process</button>
+    <button class="btn-outline" onclick="alert('Saved!')">💾 Save</button>
+  </div>
+  <div class="secure-badge">🔒 Files processed locally — never uploaded to server</div>`;
+}
+
+function aiPromptCards() {
+  const prompts = [
+    ['Male Passport Photo','Clean skin, sharp suit, neutral expression, white background, even lighting'],
+    ['Female Passport Photo','Both ears visible, soft makeup, white background, balanced professional lighting'],
+    ['Hijab Passport Photo','For hijab-wearing subjects, white background, clear face, professional expression'],
+  ];
+  return prompts.map(([t,p])=>`<div style="border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;" onclick="alert('Prompt copied! Opening Google AI Studio...')" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'"><strong style="font-size:14px;">${t}</strong><p style="font-size:12px;color:var(--text-muted);margin-top:4px;">${p}</p><button style="margin-top:8px;padding:5px 14px;border-radius:7px;border:none;background:var(--primary);color:#fff;font-size:12px;cursor:pointer;font-family:Poppins;">📋 Copy &amp; Open AI Studio</button></div>`).join('');
+}
+
+function promptLibrary() {
+  const prompts = [
+    '🎨 Enhance photo quality and sharpen details',
+    '🖼 Remove background and make it transparent',
+    '📷 Improve passport photo lighting and skin tone',
+    '🔆 Increase brightness and fix underexposure',
+    '🖌 Remove blemishes and smooth skin naturally',
+    '🌈 Enhance colors and improve saturation',
+    '📄 Convert photo to black and white professional style',
+    '✨ Make photo studio-quality with clean background'
+  ];
+  return `<div style="display:flex;flex-direction:column;gap:8px;">${prompts.map(p=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;cursor:pointer;" onclick="alert('Prompt copied!')" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='transparent'">${p}<button style="padding:4px 12px;border-radius:6px;border:none;background:#e8f0fe;color:var(--primary);font-size:11px;font-weight:600;cursor:pointer;font-family:Poppins;">Copy</button></div>`).join('')}</div>`;
+}
+
+function jointPhotoTool() {
+  return `<div class="tool-grid-2">
+    <div><div class="upload-zone" onclick="alert('Upload 1st person photo')" style="padding:20px 10px;"><div class="uz-icon">👤</div><strong>Add 1st Photo</strong></div></div>
+    <div><div class="upload-zone" onclick="alert('Upload 2nd person photo')" style="padding:20px 10px;"><div class="uz-icon">👤</div><strong>Add 2nd Photo</strong></div></div>
+  </div>
+  <div class="tool-grid-2" style="margin-top:12px;">
+    <div class="form-group"><label>Rows (Max 7)</label><input class="form-control" type="number" value="2" min="1" max="7"></div>
+    <div class="form-group"><label>Cols (Max 4)</label><input class="form-control" type="number" value="3" min="1" max="4"></div>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+    <button class="btn-primary" style="flex:1;" onclick="alert('Save A4 PDF')">💾 Save A4 PDF</button>
+    <button class="btn-outline" onclick="alert('Save JPG')">📸 Save JPG</button>
+    <button class="btn-outline" onclick="alert('Print')">🖨 Print</button>
+  </div>`;
+}
+
+// ===== OPEN / CLOSE MODAL =====
+function openModal(key) {
+  const data = modalData[key];
+  if (!data) return;
+  document.getElementById('modalTitle').innerHTML = data.title;
+  document.getElementById('modalBody').innerHTML = data.body;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Init special tools
+  if (key === 'digitalSig') setTimeout(initSigPad, 100);
+  if (key === 'ageCalc') setTimeout(()=>{}, 50);
+  if (key === 'usdConvert') doConvert();
+  if (key === 'landArea') setTimeout(calcLand, 50);
+  if (key === 'heightWeight') {};
+  if (key === 'photocopyCalc') setTimeout(calcPhotocopy, 50);
+  if (key === 'calendar') setTimeout(loadCalendar, 50);
+  if (key === 'dateConvert') {};
+  if (key === 'banglaSig') updateSigPreview();
+  if (key === 'dateWords') {};
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+// ===== SEARCH =====
+function filterTools(q) {
+  q = q.trim().toLowerCase();
+  const grids = document.querySelectorAll('[id^="toolsGrid"]');
+  let found = 0;
+  grids.forEach(grid => {
+    grid.querySelectorAll('.tool-card').forEach(card => {
+      const name = (card.dataset.name || '') + ' ' + card.innerText.toLowerCase();
+      const show = !q || name.includes(q);
+      card.style.display = show ? '' : 'none';
+      if (show) found++;
+    });
+  });
+  document.getElementById('no-result').style.display = found === 0 && q ? 'block' : 'none';
+}
+
+// ===== FAQ =====
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+
+// ===== MOBILE NAV =====
+function toggleNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// ===== TOOL FUNCTIONS =====
+function calcAge() {
+  const dob = document.getElementById('dobInput').value;
+  if (!dob) return;
+  const d = new Date(dob), now = new Date();
+  let y = now.getFullYear()-d.getFullYear(), m = now.getMonth()-d.getMonth(), day = now.getDate()-d.getDate();
+  if (day < 0) { m--; day += 30; }
+  if (m < 0) { y--; m += 12; }
+  const r = document.getElementById('ageResult');
+  r.style.display = 'block';
+  r.innerHTML = `<strong style="font-size:18px;color:var(--primary);">🎂 ${y} Years, ${m} Months, ${day} Days</strong><br><span style="font-size:13px;color:var(--text-muted);">Born: ${d.toDateString()}</span>`;
+}
+
+function doConvert() {
+  const rate = 110.50; // demo BDT per USD
+  const dir = document.getElementById('convDir')?.value;
+  const amt = parseFloat(document.getElementById('convAmt')?.value) || 0;
+  if (!amt) return;
+  const result = dir && dir.includes('USD') ? (amt * rate).toFixed(2) + ' BDT' : (amt / rate).toFixed(4) + ' USD';
+  const r = document.getElementById('convResult');
+  if (r) { r.style.display='block'; r.textContent = '💰 ' + result + ' (Rate: 1 USD = ' + rate + ' BDT)'; }
+}
+
+function calcLand() {
+  const l = parseFloat(document.getElementById('landL')?.value)||0;
+  const w = parseFloat(document.getElementById('landW')?.value)||0;
+  const sqft = l * w;
+  const decimal = sqft / 435.6;
+  const katha = decimal / 1.65;
+  const bigha = katha / 20;
+  const acre = decimal / 100;
+  const r = document.getElementById('landResult');
+  if (r) r.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">${[['Sq. Feet',sqft.toFixed(2)],['Decimal',decimal.toFixed(3)],['Katha',katha.toFixed(3)],['Bigha',bigha.toFixed(4)],['Acre',acre.toFixed(4)]].map(([k,v])=>`<div style="background:#e8f0fe;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:11px;color:var(--primary);font-weight:600;">${k}</div><div style="font-size:18px;font-weight:800;color:var(--text);">${v}</div></div>`).join('')}</div>`;
+}
+
+function calcHeight() {
+  const f = parseFloat(document.getElementById('htFeet')?.value)||0;
+  const i = parseFloat(document.getElementById('htInch')?.value)||0;
+  const cm = ((f * 12) + i) * 2.54;
+  const r = document.getElementById('htResult');
+  if (r) { r.style.display='block'; r.textContent='📏 ' + cm.toFixed(1) + ' cm / ' + (cm/100).toFixed(2) + ' m'; }
+}
+function calcWeight() {
+  const kg = parseFloat(document.getElementById('wtKg')?.value)||0;
+  const lbs = kg * 2.20462;
+  const r = document.getElementById('wtResult');
+  if (r) { r.style.display='block'; r.textContent='⚖ ' + lbs.toFixed(2) + ' lbs (Pounds)'; }
+}
+
+function calcPhotocopy() {
+  const rim = parseFloat(document.getElementById('rimPrice')?.value)||0;
+  const ink = parseFloat(document.getElementById('inkPrice')?.value)||0;
+  const yield_ = parseFloat(document.getElementById('pageYield')?.value)||1;
+  const elec = parseFloat(document.getElementById('electricity')?.value)||0;
+  const sell = parseFloat(document.getElementById('sellPrice')?.value)||0;
+  const costPerPage = ((rim/500) + (ink/yield_) + elec);
+  const profit = sell - costPerPage;
+  const r = document.getElementById('copyResult');
+  if (r) r.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="background:#e3f2fd;border-radius:10px;padding:12px;text-align:center;"><div style="font-size:11px;color:var(--primary);font-weight:600;">Cost Per Page</div><div style="font-size:22px;font-weight:800;color:var(--primary);">${costPerPage.toFixed(2)} <small style="font-size:12px;">BDT</small></div></div>
+    <div style="background:#e8f5e9;border-radius:10px;padding:12px;text-align:center;"><div style="font-size:11px;color:var(--accent2);font-weight:600;">Profit Per Page</div><div style="font-size:22px;font-weight:800;color:var(--accent2);">${profit.toFixed(2)} <small style="font-size:12px;">BDT</small></div></div>
+  </div>`;
+}
+
+function loadCalendar() {
+  const now = new Date();
+  const d = document.getElementById('calToday');
+  const b = document.getElementById('calBengali');
+  const a = document.getElementById('calArabic');
+  if (d) d.textContent = now.toLocaleDateString('en-BD', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  if (b) b.textContent = now.toLocaleDateString('bn-BD', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  if (a) a.textContent = now.toLocaleDateString('ar-SA-u-ca-islamic', {year:'numeric',month:'long',day:'numeric'}) + ' (হিজরি)';
+}
+
+function convertDates() {
+  const inp = document.getElementById('dateConvInput')?.value;
+  if (!inp) return;
+  const d = new Date(inp);
+  const r = document.getElementById('dateConvResult');
+  if (r) r.style.display = 'block';
+  const en = document.getElementById('enDate');
+  const bn = document.getElementById('bnDate');
+  const ar = document.getElementById('arDate');
+  if (en) en.textContent = d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  if (bn) bn.textContent = d.toLocaleDateString('bn-BD',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  if (ar) ar.textContent = d.toLocaleDateString('ar-SA-u-ca-islamic',{year:'numeric',month:'long',day:'numeric'}) + ' (হিজরি - আনুমানিক)';
+}
+
+function convertDateWords() {
+  const inp = document.getElementById('dwDate')?.value;
+  const lang = document.getElementById('dwLang')?.value;
+  if (!inp) return;
+  const d = new Date(inp);
+  const r = document.getElementById('dwResult');
+  if (r) { r.style.display='block'; r.textContent = lang === 'English' ? d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : d.toLocaleDateString('bn-BD',{year:'numeric',month:'long',day:'numeric'}); }
+}
+
+function demoTranslate() {
+  const eng = document.getElementById('engText')?.value;
+  const t = document.getElementById('bnText');
+  if (t && eng) t.value = '[বাংলা অনুবাদ এখানে দেখা যাবে — Bengali translation here]';
+}
+
+function demoPhonetic(el) {
+  const map = {a:'আ',e:'এ',i:'ই',o:'ও',u:'উ',' ':' '};
+  const r = document.getElementById('phoneticResult');
+  if (r) r.textContent = '[Phonetic output: ' + el.value + ' → বাংলা]';
+}
+
+function demoBanglish(el) {
+  const r = document.getElementById('banglishResult');
+  if (r) r.value = '[Banglish: ' + el.value + ']';
+}
+
+function updateSigPreview() {
+  const n = document.getElementById('banglaNameInput')?.value || 'আপনার নাম';
+  const w = document.getElementById('sigStyle')?.value || '500';
+  const p = document.getElementById('banglaPreview');
+  if (p) { p.textContent = n; p.style.fontWeight = w; }
+}
+
+function updateQRPlaceholder() {
+  const t = document.getElementById('qrType')?.value;
+  const l = document.getElementById('qrLabel');
+  const i = document.getElementById('qrInput');
+  const p = {URL:'Website URL',Text:'Write Text',WiFi:'WiFi Name (SSID)',Email:'Email Address'};
+  if (l) l.textContent = p[t]||'Input';
+  if (i) i.placeholder = t==='Email'?'you@example.com':t==='WiFi'?'Network Name':t==='Text'?'Write anything':'https://';
+}
+
+function switchPdfTab(tab) {
+  document.getElementById('pdfMergePane').style.display = tab==='merge'?'':'none';
+  document.getElementById('pdfSplitPane').style.display = tab==='split'?'':'none';
+  document.getElementById('tabMerge').className = tab==='merge'?'btn-primary':'btn-outline';
+  document.getElementById('tabSplit').className = tab==='split'?'btn-primary':'btn-outline';
+}
+
+function addPeriod() {
+  const list = document.getElementById('periodList');
+  if (!list) return;
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;';
+  div.innerHTML = '<input class="form-control" type="time"><input class="form-control" placeholder="Subject name">';
+  list.appendChild(div);
+}
+
+// ===== SIGNATURE PAD =====
+let sigDrawing = false, sigCtx, sigCanvas2;
+function initSigPad() {
+  sigCanvas2 = document.getElementById('sigCanvas');
+  if (!sigCanvas2) return;
+  sigCtx = sigCanvas2.getContext('2d');
+  sigCtx.lineJoin = 'round'; sigCtx.lineCap = 'round'; sigCtx.strokeStyle = '#000';
+  const thick = document.getElementById('sigThick');
+  if (thick) {
+    thick.oninput = ()=>{ sigCtx.lineWidth = thick.value; document.getElementById('sigThickVal').textContent = thick.value; };
+    sigCtx.lineWidth = thick.value;
+  }
+  const getPos = e => {
+    const r = sigCanvas2.getBoundingClientRect();
+    const sx = sigCanvas2.width/r.width, sy = sigCanvas2.height/r.height;
+    if (e.touches) return [(e.touches[0].clientX-r.left)*sx, (e.touches[0].clientY-r.top)*sy];
+    return [(e.clientX-r.left)*sx, (e.clientY-r.top)*sy];
+  };
+  sigCanvas2.onmousedown = e => { sigDrawing=true; sigCtx.beginPath(); const [x,y]=getPos(e); sigCtx.moveTo(x,y); };
+  sigCanvas2.onmousemove = e => { if (!sigDrawing) return; const [x,y]=getPos(e); sigCtx.lineTo(x,y); sigCtx.stroke(); };
+  sigCanvas2.onmouseup = sigCanvas2.onmouseleave = ()=> sigDrawing=false;
+  sigCanvas2.ontouchstart = e=>{ e.preventDefault(); sigDrawing=true; sigCtx.beginPath(); const [x,y]=getPos(e); sigCtx.moveTo(x,y); };
+  sigCanvas2.ontouchmove = e=>{ e.preventDefault(); if(!sigDrawing)return; const[x,y]=getPos(e); sigCtx.lineTo(x,y); sigCtx.stroke(); };
+  sigCanvas2.ontouchend = ()=>sigDrawing=false;
+}
+function clearSig() { if (sigCtx && sigCanvas2) sigCtx.clearRect(0,0,sigCanvas2.width,sigCanvas2.height); }
+function saveSig() {
+  if (!sigCanvas2) return;
+  const a = document.createElement('a');
+  a.href = sigCanvas2.toDataURL('image/png');
+  a.download = 'signature.png'; a.click();
+}
+
+// ===== KEYBOARD =====
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
