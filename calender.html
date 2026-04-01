@@ -21,6 +21,50 @@
     .bn-date { font-size:15px; color:#6a1b9a; margin-top:4px; }
     .hijri { font-size:13.5px; color:#d32f2f; margin-top:6px; font-weight:500; }
     .today { background:#e8f5e9 !important; border:3px solid #4caf50; }
+	
+	/* ===== মোবাইল রেসপন্সিভ কোড ===== */
+@media (max-width: 600px) {
+  body { padding: 5px; }
+  .container { border-radius: 10px; }
+  
+  /* হেডার ও টেক্সট ছোট করা */
+  .header { padding: 15px 10px; }
+  .header h1 { font-size: 18px; }
+  .live-time { font-size: 13px; padding: 5px 10px; }
+  .current-date { font-size: 11px; }
+  .month-title { font-size: 17px; margin-bottom: 10px; }
+
+  /* ক্যালেন্ডার গ্রিড অ্যাডজাস্টমেন্ট */
+  .calendar { padding: 8px; }
+  .grid { gap: 3px; } /* গ্যাপ কমানো হয়েছে */
+  
+  .day-header { 
+    padding: 8px 2px; 
+    font-size: 11px; 
+  }
+
+  .day { 
+    min-height: 70px; /* উচ্চতা কমানো হয়েছে */
+    padding: 5px 2px; 
+    border-radius: 6px;
+  }
+
+  /* তারিখের ফন্ট সাইজ ছোট করা যাতে বক্সে ধরে */
+  .eng-date { font-size: 16px; }
+  .bn-date { 
+    font-size: 9px; 
+    margin-top: 2px; 
+    line-height: 1;
+  }
+  .hijri { 
+    font-size: 8.5px; 
+    margin-top: 2px; 
+    line-height: 1; 
+    display: block;
+  }
+  
+  .today { border-width: 2px !important; }
+}
   </style>
 </head>
 <body>

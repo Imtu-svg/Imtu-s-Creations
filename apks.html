@@ -87,17 +87,18 @@
             padding: 40px 5%;
         }
 
+       /* মূল গ্রিড - পিসি বা বড় স্ক্রিনের জন্য ৩টি বা তার বেশি */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr); /* এখানে ৩টি কলাম ফিক্সড করা হয়েছে */
+            gap: 20px;
         }
 
         .app-card {
             display: block;
             background: #181818;
-            border-radius: 22px;
-            padding: 24px 18px;
+            border-radius: 18px;
+            padding: 15px 10px; /* প্যাডিং কমানো হয়েছে */
             text-align: center;
             text-decoration: none;
             color: inherit;
@@ -107,68 +108,79 @@
         }
 
         .app-card:hover {
-            transform: translateY(-12px) scale(1.04);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.25);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.2);
             border-color: #00ff88;
         }
 
         .app-card img {
-            width: 96px;
-            height: 96px;
+            width: 70px; /* ইমেজ সাইজ ছোট করা হয়েছে যাতে ৩টি ধরে */
+            height: 70px;
             object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 18px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s;
         }
 
-        .app-card:hover img {
-            transform: scale(1.12) rotate(6deg);
-        }
-
         .app-name {
-            font-size: 18px;
+            font-size: 14px; /* নাম ছোট করা হয়েছে */
             font-weight: 700;
-            margin-bottom: 4px;
-            line-height: 1.3;
+            margin-bottom: 6px;
+            line-height: 1.2;
+            white-space: nowrap; /* নাম এক লাইনে রাখার জন্য */
+            overflow: hidden;
+            text-overflow: ellipsis; /* বড় নাম হলে ডট ডট (...) দেখাবে */
         }
 
         .app-version {
-            font-size: 14px;
+            font-size: 11px; /* ভার্সন টেক্সট ছোট করা হয়েছে */
             color: #00ff88;
             font-weight: 600;
             background: #00ff8811;
-            padding: 4px 14px;
-            border-radius: 30px;
+            padding: 2px 8px;
+            border-radius: 20px;
             display: inline-block;
         }
 
-        .no-result {
-            text-align: center;
-            padding: 80px 20px;
-            font-size: 18px;
-            color: #666;
-            grid-column: 1 / -1;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
+        /* মোবাইল স্ক্রিনের জন্য বিশেষ সেটিংস (Responsive) */
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 3%;
+            }
+            .logo { font-size: 20px; }
+            
             .grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-                gap: 18px;
+                grid-template-columns: repeat(3, 1fr); /* মোবাইলেও ৩টি অ্যাপ দেখাবে */
+                gap: 8px; /* গ্যাপ কমানো হয়েছে */
             }
+            
             .app-card {
-                padding: 20px 14px;
+                padding: 12px 5px;
+                border-radius: 12px;
             }
+            
             .app-card img {
-                width: 82px;
-                height: 82px;
+                width: 55px; /* মোবাইলে ইমেজ আরও ছোট করা হয়েছে */
+                height: 55px;
+                border-radius: 10px;
+                margin-bottom: 8px;
+            }
+
+            .app-name {
+                font-size: 11px; /* মোবাইলে নাম ছোট */
+            }
+
+            .app-version {
+                font-size: 9px;
+                padding: 1px 6px;
+            }
+            
+            .search-box {
+                padding: 10px 18px;
+            }
+            .search-box input {
+                font-size: 14px;
             }
         }
     </style>
@@ -251,7 +263,7 @@
             {
                 name: "CapCut",
                 version: "23.1.0",
-                icon: "CapCut.jpg",
+                icon: "capcut.jpg",
                 apk: "CapCut.apk"
             },
             {
