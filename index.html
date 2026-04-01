@@ -250,10 +250,84 @@ footer{text-align:center;padding:40px;opacity:.5;}
   .search-mini-grid{grid-template-columns:repeat(auto-fill,minmax(110px,110px));}
   .search-mini-card{width:110px;}
 }
-@media(max-width:400px){
-  .character{width:150px;}
-  .hero h1{font-size:36px;letter-spacing:3px;}
-  .hero p{font-size:13px;}
+/* মোবাইল ফিক্স: সার্চ বক্স ছোট করুন */
+@media (max-width: 768px) {
+    .search-box-wrapper {
+        width: 95vw !important;  /* fixed 550px বাদ দিন */
+        max-width: 95vw !important;
+    }
+    .google-search-box {
+        padding: 0 8px;  /* অতিরিক্ত padding কমান */
+    }
+}
+
+/* সব section full-width করুন, padding fix */
+section {
+    width: 100vw;      /* পুরো স্ক্রিন কভার */
+    margin-left: calc(50% - 50vw);  /* সেন্টার করুন */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Hero section-এ নিচের অংশ দেখানোর জন্য */
+.hero {
+    min-height: 100vh;
+    padding-bottom: 100px;  /* নিচে স্পেস রাখুন */
+    overflow-y: auto;       /* ভার্টিক্যাল স্ক্রল allow */
+}
+
+/* Work grid fix for mobile */
+@media (max-width: 768px) {
+    .work-grid {
+        grid-template-columns: 1fr;
+        height: auto;     /* fixed height বাদ */
+        gap: 20px;
+    }
+}
+/* সব ছবি responsive করুন */
+img {
+    max-width: 100%;
+    height: auto !important;  /* height fixed বাদ */
+    object-fit: cover;
+}
+
+/* Work grid + img perfect mobile size */
+.work-grid {
+    height: auto !important;  /* fixed height সম্পূর্ণ বাদ */
+    min-height: 300px;
+}
+
+.work {
+    height: 220px;  /* মোবাইলে ছোট height */
+    width: 100%;
+}
+
+.work img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;  /* ছবি ক্রপ করে fit করে */
+}
+
+/* মোবাইল স্পেশাল ফিক্স (ছবি আরও ছোট) */
+@media (max-width: 768px) {
+    .work {
+        height: 160px !important;  /* ফোনে ছোট ছবি */
+    }
+    .work-grid {
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    /* Hero character ছবি ছোট */
+    .character {
+        width: 140px !important;
+        height: auto;
+    }
+}
+
+/* Popup PNG card ছবি ফিক্স */
+.png-card-img-wrap img {
+    max-height: 70px !important;
 }
 </style>
 </head>
