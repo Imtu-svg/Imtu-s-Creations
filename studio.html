@@ -511,66 +511,42 @@
   }
   .wa-float:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
 
-  /* ===== MOBILE NAV ===== */
-  .mobile-nav {
-    display: none;
-    position: fixed; top: var(--header-h); left: 0; right: 0; bottom: 0;
-    background: #fff; z-index: 999; padding: 20px;
-    flex-direction: column; gap: 8px;
-    overflow-y: auto;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+ /* ===== RESPONSIVE FIXES ===== */
+@media (max-width: 768px) {
+  nav { display: none; }
+  .hamburger { display: flex; }
+  .tools-grid { 
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+    gap: 12px; 
   }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a {
-    padding: 14px 16px; border-radius: 10px;
-    text-decoration: none; color: var(--text); font-size: 15px; font-weight: 500;
-    transition: background .18s; border: 1px solid var(--border);
-  }
-  .mobile-nav a:hover { background: #e8f0fe; color: var(--primary); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    nav { display: none; }
-    .hamburger { display: flex; }
-    .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .trust-inner h2 { font-size: 20px; }
+@media (max-width: 480px) {
+  /* ৩ কলামের বদলে ২ কলাম করুন */
+  .tools-grid { 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 10px; 
   }
-  @media (max-width: 480px) {
-    .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .tool-card { padding: 14px 8px 12px; }
-    .tool-icon { width: 42px; height: 42px; font-size: 20px; }
-    .tool-name { font-size: 11px; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 24px; }
-    .tool-grid-2 { grid-template-columns: 1fr; }
+  
+  .tool-card { padding: 15px 10px; }
+  .tool-name { font-size: 12px; line-height: 1.2; }
+  
+  /* মডালের ভেতরের গ্রিড ১ কলাম করে দিন */
+  .tool-grid-2 { 
+    grid-template-columns: 1fr !important; 
   }
 
-  /* no result */
-  #no-result {
-    display: none; text-align: center; padding: 40px 20px;
-    color: var(--text-muted); font-size: 15px;
-  }
-  #no-result .nr-icon { font-size: 48px; margin-bottom: 12px; }
-
-  /* loading bar */
-  .page-loader {
-    position: fixed; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    z-index: 9999;
-    animation: load 1.2s ease forwards;
-  }
-  @keyframes load { from { width: 0; opacity: 1; } 80% { width: 90%; opacity: 1; } to { width: 100%; opacity: 0; } }
-
-  /* stagger cards */
-  .tool-card:nth-child(1) { animation-delay: .02s; }
-  .tool-card:nth-child(2) { animation-delay: .04s; }
-  .tool-card:nth-child(3) { animation-delay: .06s; }
-  .tool-card:nth-child(4) { animation-delay: .08s; }
-  .tool-card:nth-child(5) { animation-delay: .10s; }
-  .tool-card:nth-child(6) { animation-delay: .12s; }
-  .tool-card:nth-child(7) { animation-delay: .14s; }
-  .tool-card:nth-child(8) { animation-delay: .16s; }
+  .hero h1 { font-size: 26px; }
+  .hero p { font-size: 14px; }
+  
+  /* টেবিল যাতে স্ক্রিন নষ্ট না করে */
+  .modal-body { overflow-x: auto; }
+  table { min-width: 400px; } /* টেবিলকে ভেতরে স্ক্রল করাবে */
+  
+  .search-box { flex-direction: column; padding: 10px; }
+  .search-btn { width: 100%; justify-content: center; }
+}
 </style>
 </head>
 <body>
